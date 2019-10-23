@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
-import com.revrobotics.SparkMax;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,9 +16,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
-import frc.robot.commands.ExampleCommand;
 
-public class ExampleSubsystem extends SubsystemBase {
+public class Drivetrain extends SubsystemBase {
 
 	// Drivetrain motors
 	private CANSparkMax lMotor0;
@@ -29,19 +27,20 @@ public class ExampleSubsystem extends SubsystemBase {
 	private CANSparkMax rMotor1;
 	private CANSparkMax rMotor2;
 
-	public Joystick driverStick = new Joystick(0);
 
-	DifferentialDrive differentialDrive;
+	private DifferentialDrive differentialDrive;
 
 	// Gearbox encoders
 	private Encoder leftShaftEncoder = new Encoder(RobotMap.p_leftEncoderA, RobotMap.p_leftEncoderB, true, CounterBase.EncodingType.k4X);
 	private Encoder rightShaftEncoder = new Encoder(RobotMap.p_rightEncoderA, RobotMap.p_rightEncoderB, true,
 			CounterBase.EncodingType.k4X);
 
+
+
 	/**
-	 * Creates a new ExampleSubsystem.
+	 * Creates a new Drivetrain.
 	 */
-	public ExampleSubsystem() {
+	public Drivetrain() {
 		lMotor0 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
 		lMotor1 = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
 		lMotor2 = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -74,9 +73,6 @@ public class ExampleSubsystem extends SubsystemBase {
 	}
 
 
-	public String getMessage() {
-		return "Message Recieved";
-	}
 
 	/**
 	 * Will be called periodically whenever the CommandScheduler runs.
