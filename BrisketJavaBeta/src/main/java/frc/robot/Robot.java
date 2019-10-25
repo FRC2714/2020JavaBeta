@@ -1,97 +1,204 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+/**
+ * This is a very simple robot program that can be used to send telemetry to
+ * the data_logger script to characterize your drivetrain. If you wish to use
+ * your actual robot code, you only need to implement the simple logic in the
+ * autonomousPeriodic function and change the NetworkTables update rate
+ *
+ * This program assumes that you are using TalonSRX motor controllers and that
+ * the drivetrain encoders are attached to the TalonSRX
+ */
 
-package frc.robot;
+package dc;
 
+import java.util.function.Supplier;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.EncoderType;
+
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
+  static private int ENCODER_PPR = 1024;
+  static private double WHEEL_DIAMETER = 0.25;
+  static private double GEARING = 8.6190767288208;
+  static private int PIDIDX = 0;
+
+  Joystick stick;
+  DifferentialDrive drive;
+
+  CANSparkMax leftMaster;
+  CANSparkMax rightMaster;
+
+  Supplier<Double> leftEncoderPosition;
+  Supplier<Double> leftEncoderRate;
+  Supplier<Double> rightEncoderPosition;
+  Supplier<Double> rightEncoderRate;
+
+  NetworkTableEntry autoSpeedEntry =
+      NetworkTableInstance.getDefault().getEntry("/robot/autospeed");
+  NetworkTableEntry telemetryEntry =
+      NetworkTableInstance.getDefault().getEntry("/robot/telemetry");
+
+  double priorAutospeed = 0;
+  Number[] numberArray = new Number[9];
+
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
+    if (!isReal()) SmartDashboard.putData(new SimEnabler());
+
+    stick = new Joystick(0);
+
+    leftMaster = new CANSparkMax(1, MotorType.kBrushed);
+    leftMaster.setInverted(false);
+    leftMaster.setIdleMode(IdleMode.kBrake);
+
+    rightMaster = new CANSparkMax(4, MotorType.kBrushed);
+    rightMaster.setInverted(false);
+    rightMaster.setIdleMode(IdleMode.kBrake);
+
+    CANSparkMax leftSlave0 = new CANSparkMax(2, MotorType.kBrushed);
+    leftSlave0.follow(leftMaster);
+    leftSlave0.setIdleMode(IdleMode.kBrake);
+    CANSparkMax leftSlave1 = new CANSparkMax(3, MotorType.kBrushed);
+    leftSlave1.follow(leftMaster);
+    leftSlave1.setIdleMode(IdleMode.kBrake);
+
+    CANSparkMax rightSlave0 = new CANSparkMax(5, MotorType.kBrushed);
+    rightSlave0.follow(rightMaster);
+    rightSlave0.setIdleMode(IdleMode.kBrake);
+    CANSparkMax rightSlave1 = new CANSparkMax(6, MotorType.kBrushed);
+    rightSlave1.follow(rightMaster);
+    rightSlave1.setIdleMode(IdleMode.kBrake);
+
+    //
+    // Configure drivetrain movement
+    //
+
+    drive = new DifferentialDrive(leftMaster, rightMaster);
+
+    drive.setDeadband(0);
+
+    //
+    // Configure encoder related functions -- getDistance and getrate should
+    // return units and units/s
+    //
+
+    double encoderConstant =
+        (1 / GEARING) * WHEEL_DIAMETER * Math.PI;
+
+    CANEncoder leftEncoder = leftMaster.getEncoder(EncoderType.kQuadrature, ENCODER_PPR);
+    CANEncoder rightEncoder = rightMaster.getEncoder(EncoderType.kQuadrature, ENCODER_PPR);
+
+
+    rightEncoder.setInverted(true);
+
+    leftEncoderPosition = ()
+        -> leftEncoder.getPosition() * encoderConstant;
+    leftEncoderRate = ()
+        -> leftEncoder.getVelocity() * encoderConstant / 60.;
+
+    rightEncoderPosition = ()
+        -> rightEncoder.getPosition() * encoderConstant;
+    rightEncoderRate = ()
+        -> leftEncoder.getVelocity() * encoderConstant / 60.;
+
+    // Reset encoders
+    leftMaster.getEncoder().setPosition(0);
+    rightMaster.getEncoder().setPosition(0);
+
+    // Set the update rate instead of using flush because of a ntcore bug
+    // -> probably don't want to do this on a robot in competition
+    NetworkTableInstance.getDefault().setUpdateRate(0.010);
   }
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use
-   * this for items like diagnostics that you want ran during disabled,
-   * autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
-   */
+  @Override
+  public void disabledInit() {
+    System.out.println("Robot disabled");
+    drive.tankDrive(0, 0);
+  }
+
+  @Override
+  public void disabledPeriodic() {}
+
   @Override
   public void robotPeriodic() {
+    // feedback for users, but not used by the control program
+    SmartDashboard.putNumber("l_encoder_pos", leftEncoderPosition.get());
+    SmartDashboard.putNumber("l_encoder_rate", leftEncoderRate.get());
+    SmartDashboard.putNumber("r_encoder_pos", rightEncoderPosition.get());
+    SmartDashboard.putNumber("r_encoder_rate", rightEncoderRate.get());
   }
 
-  /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString line to get the auto name from the text box below the Gyro
-   *
-   * <p>You can add additional auto modes by adding additional comparisons to
-   * the switch structure below with additional strings. If using the
-   * SendableChooser make sure to add them to the chooser code above as well.
-   */
+  @Override
+  public void teleopInit() {
+    System.out.println("Robot in operator control mode");
+  }
+
+  @Override
+  public void teleopPeriodic() {
+    drive.arcadeDrive(-stick.getY(), stick.getX());
+  }
+
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    System.out.println("Robot in autonomous mode");
   }
 
   /**
-   * This function is called periodically during autonomous.
+   * If you wish to just use your own robot program to use with the data logging
+   * program, you only need to copy/paste the logic below into your code and
+   * ensure it gets called periodically in autonomous mode
+   *
+   * Additionally, you need to set NetworkTables update rate to 10ms using the
+   * setUpdateRate call.
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
-  }
 
-  /**
-   * This function is called periodically during operator control.
-   */
-  @Override
-  public void teleopPeriodic() {
-  }
+    // Retrieve values to send back before telling the motors to do something
+    double now = Timer.getFPGATimestamp();
 
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
+    double leftPosition = leftEncoderPosition.get();
+    double leftRate = leftEncoderRate.get();
+
+    double rightPosition = rightEncoderPosition.get();
+    double rightRate = rightEncoderRate.get();
+
+    double battery = RobotController.getBatteryVoltage();
+
+    double leftMotorVolts = leftMaster.getBusVoltage() * leftMaster.getAppliedOutput();
+    double rightMotorVolts = rightMaster.getBusVoltage() * rightMaster.getAppliedOutput();
+
+    // Retrieve the commanded speed from NetworkTables
+    double autospeed = autoSpeedEntry.getDouble(0);
+    priorAutospeed = autospeed;
+
+    // command motors to do things
+    drive.tankDrive(autospeed, autospeed, false);
+
+    // send telemetry data array back to NT
+    numberArray[0] = now;
+    numberArray[1] = battery;
+    numberArray[2] = autospeed;
+    numberArray[3] = leftMotorVolts;
+    numberArray[4] = rightMotorVolts;
+    numberArray[5] = leftPosition;
+    numberArray[6] = rightPosition;
+    numberArray[7] = leftRate;
+    numberArray[8] = rightRate;
+
+    telemetryEntry.setNumberArray(numberArray);
   }
 }

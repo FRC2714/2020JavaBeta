@@ -1,6 +1,6 @@
 package frc.robot;
 
-public class RobotMap {
+public class Constants {
 
 	// Controllers
 	public static int p_xbox1 = 0;
@@ -19,4 +19,7 @@ public class RobotMap {
 	public static int p_shoulderEncoderB = 5;
 	public static int p_wristEncoderA = 6;
 	public static int p_wristEncoderB = 7;
+
+	public static final double kMaxSpeed = 12; // feet per second
+
 }

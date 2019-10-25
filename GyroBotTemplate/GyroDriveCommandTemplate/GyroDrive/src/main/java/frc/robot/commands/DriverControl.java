@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -18,7 +17,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DriverControl extends CommandBase {
 
 	@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-	private final Drivetrain m_subsystem;
+	private final Drivetrain drivetrain;
+
 
 
 	/**
@@ -27,7 +27,7 @@ public class DriverControl extends CommandBase {
 	 * @param subsystem The subsystem used by this command.
 	 */
 	public DriverControl(Drivetrain subsystem) {
-		m_subsystem = subsystem;
+		drivetrain = subsystem;
 		addRequirements(subsystem);
 	}
 
@@ -36,10 +36,13 @@ public class DriverControl extends CommandBase {
 		double rawX = RobotContainer.driverStick.getRawAxis(1);
 		double rawPivot = RobotContainer.driverStick.getRawAxis(4);
 
-		if(Math.abs(rawX) > 0.035 || Math.abs(rawPivot) > 0.035)
-			m_subsystem.setCurvatureDrive(-rawX, rawPivot);
-		else
-			m_subsystem.setCurvatureDrive(0,0);
+		if(Math.abs(rawX) < 0.04)
+			rawX = 0;
+
+		if(Math.abs(rawPivot) < 0.04)
+			rawPivot = 0;
+
+		drivetrain.setCurvatureDrive(-rawX, rawPivot);
 	}
 
 }
