@@ -7,22 +7,22 @@
 
 package frc.team2714.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
+import frc.team2714.robot.Constants;
+import frc.team2714.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -38,6 +38,7 @@ public class Drivetrain extends SubsystemBase {
 	private final DifferentialDriveOdometry m_odometry =
 			new DifferentialDriveOdometry(m_kinematics);
 
+	private Pose2d currentPose;
 
 	// Drivetrain motors
 	private CANSparkMax lMotor0;
@@ -47,13 +48,17 @@ public class Drivetrain extends SubsystemBase {
 	private CANSparkMax rMotor1;
 	private CANSparkMax rMotor2;
 
-
-	private DifferentialDrive differentialDrive;
-
 	// Gearbox encoders
 	private Encoder leftShaftEncoder = new Encoder(Constants.p_leftEncoderA, Constants.p_leftEncoderB, true, CounterBase.EncodingType.k4X);
 	private Encoder rightShaftEncoder = new Encoder(Constants.p_rightEncoderA, Constants.p_rightEncoderB, true,
 			CounterBase.EncodingType.k4X);
+
+	//NavX
+	AHRS navx = new AHRS(SPI.Port.kMXP);
+
+	private DifferentialDrive differentialDrive;
+
+
 
 	/**
 	 * Creates a new Drivetrain.
@@ -102,9 +107,13 @@ public class Drivetrain extends SubsystemBase {
 	 *
 	 * @return The angle of the robot.
 	 */
-	public Rotation2d getAngle() {
+	public Rotation2d getFakeAngle() {
 		// Negating the angle because WPILib gyros are CW positive.
 		return Rotation2d.fromDegrees(0);
+	}
+
+	public Rotation2d getAngle(){
+		return Rotation2d.fromDegrees(-navx.getFusedHeading());
 	}
 
 	/**
@@ -120,7 +129,7 @@ public class Drivetrain extends SubsystemBase {
 	 * Updates the field-relative position.
 	 */
 	public Pose2d updateOdometry() {
-		return m_odometry.update(getAngle(), getCurrentSpeeds());
+		return m_odometry.update(getFakeAngle(), getCurrentSpeeds());
 	}
 
 	/**
@@ -139,23 +148,27 @@ public class Drivetrain extends SubsystemBase {
 		return -((rMotor0.getEncoder().getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation;
 	}
 
+	public Pose2d getCurrentPose(){
+		return currentPose;
+	}
+
 
 	/**
 	 * Will be called periodically whenever the CommandScheduler runs.
 	 */
 	@Override
 	public void periodic() {
-//		SmartDashboard.putNumber("Left Encoder = " , leftShaftEncoder.getDistance());
-//		SmartDashboard.putNumber("Right Encoder = " , rightShaftEncoder.getDistance());
+		currentPose = updateOdometry();
 
 		SmartDashboard.putNumber("Left NEO Encoder Speed Ft/s", getLeftNeoVelocity());
 		SmartDashboard.putNumber("Right NEO Encoder Speed Ft/s", getRightNeoVelocity());
 
-		SmartDashboard.putNumber("Odometer X Value = ", updateOdometry().getTranslation().getX());
+		SmartDashboard.putNumber("X Pose", currentPose.getTranslation().getX());
+		SmartDashboard.putNumber("Y Pose", currentPose.getTranslation().getY());
+
 
 		SmartDashboard.putNumber("Raw Joystick 1 = " , RobotContainer.driverStick.getRawAxis(1));
 		SmartDashboard.putNumber("Raw Joystick 4 = " , RobotContainer.driverStick.getRawAxis(4));
-
 
 	}
 }
