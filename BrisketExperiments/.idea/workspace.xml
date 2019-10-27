@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1dd59101-4b29-4592-9635-1eab993062ee" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/.wpilib/wpilib_preferences.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/src/main/deploy/example.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/src/main/java/frc/robot/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/src/main/java/frc/robot/Robot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/src/main/java/frc/robot/SimEnabler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BrisketJavaBeta/vendordeps/REVRobotics.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-headers.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-headers.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-headers.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathena.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathena.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathena.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathenadebug.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathenadebug.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathenadebug.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathenastatic.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathenastatic.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathenastatic.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathenastaticdebug.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathenastaticdebug.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-linuxathenastaticdebug.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-source.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-source.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-source.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64debug.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64debug.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64debug.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64static.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64static.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64static.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64staticdebug.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64staticdebug.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33-windowsx86-64staticdebug.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33.pom.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/1.4.33/SparkMax-cpp-1.4.33.pom.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/maven-metadata.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/maven-metadata.xml.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-cpp/maven-metadata.xml.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-headers.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-headers.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-headers.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathena.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathena.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathena.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathenadebug.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathenadebug.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathenadebug.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathenastatic.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathenastatic.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathenastatic.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathenastaticdebug.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathenastaticdebug.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-linuxathenastaticdebug.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64debug.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64debug.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64debug.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64static.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64static.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64static.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64staticdebug.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64staticdebug.zip.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33-windowsx86-64staticdebug.zip.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33.pom.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/1.4.33/SparkMax-driver-1.4.33.pom.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/maven-metadata.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/maven-metadata.xml.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-driver/maven-metadata.xml.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33-javadoc.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33-javadoc.jar.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33-javadoc.jar.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33-sources.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33-sources.jar.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33-sources.jar.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33.jar.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33.jar.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33.pom.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/1.4.33/SparkMax-java-1.4.33.pom.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/maven-metadata.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/maven-metadata.xml.md5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/maven/com/revrobotics/frc/SparkMax-java/maven-metadata.xml.sha1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SparkMax/vendordeps/REVRobotics.json" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1835397161">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="7" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="7" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="10" />
+          <entry key="txt" value="12" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="10" />
+          <entry key="PLAIN_TEXT" value="12" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/frc/team2714/robot/Robot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="27" column="71" selection-start-line="27" selection-start-column="71" selection-end-line="27" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="myGradleHomes">
+      <map>
+        <entry key="$PROJECT_DIR$" value="C:\Gradle\gradle-5.6.1" />
+      </map>
+    </option>
+    <option name="myGradleVersions">
+      <map>
+        <entry key="$PROJECT_DIR$" value="5.6.1" />
+      </map>
+    </option>
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="BrisketExperiments" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="BrisketExperiments" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="availableTasks">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of root project 'BrisketExperiments'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="writeDebugInfo" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Gradle wrapper files." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="wrapper" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Simulate External Task for Java/Kotlin/JVM. Exports a JSON file for use by editors / tools" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="simulateExternalJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deploy all artifacts on all targets" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deploy" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of root project 'BrisketExperiments'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="mergeDebugInfo" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployFrcJavaRoborio" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from root project 'BrisketExperiments'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Install the tool SmartDashboard" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="SmartDashboardInstall" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run a console displaying output from the RoboRIO (roborio)" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="riologRoborio" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Install the tool RobotBuilder" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="RobotBuilderInstall" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Initializes a new Gradle build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="init" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Determine the address(es) of target Roborio" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="discoverRoborio" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run a console displaying output from the default RoboRIO (roborio)" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="riolog" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run the tool RobotBuilder" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="RobotBuilder" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in root project 'BrisketExperiments'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run the tool PathWeaver" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="PathWeaver" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Print all versions of the wpi block" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="wpi" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="externalSimulate" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Download all dependencies that may be used by this project" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="downloadAll" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Install the tool OutlineViewer" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="OutlineViewerInstall" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployJreRoborio" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployFrcStaticFileDeployRoborio" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by root project 'BrisketExperiments'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Clean Clion IDE Files" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="cleanClion" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in root project 'BrisketExperiments'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run the tool OutlineViewer" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="OutlineViewer" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in root project 'BrisketExperiments'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployNativeLibsRoborio" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployNativeZipRoborio" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deployRoborioCommandsRoborio" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run the tool ShuffleBoard" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="ShuffleBoard" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generate Editor Configuration for Build and Debugging" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="editorConfig" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generate Clion CMakeLists.txt files." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="clion" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Explain all Maven Repos present on this project" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="explainRepositories" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="downloadDepsPreemptively" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Install the tool ShuffleBoard" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="ShuffleBoardInstall" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Launch simulation for Java/Kotlin/JVM" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="simulateJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Install the tool PathWeaver" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="PathWeaverInstall" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in root project 'BrisketExperiments'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareKotlinBuildScriptModel" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Install All Tools" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="InstallAllTools" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run the tool SmartDashboard" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="SmartDashboard" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Extract Test JNI Native Libraries (nativeDesktopLib, nativeDesktopZip)" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="extractTestJNI" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of root project 'BrisketExperiments'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$" value="4691693227337" />
+        <entry key="$PROJECT_DIR$/.gradle" value="0" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="722133617" />
+        <entry key="$PROJECT_DIR$/settings.gradle" value="2000871635" />
+      </map>
+    </option>
+    <option name="projectBuildClasspath">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <ExternalProjectBuildClasspathPojo>
+              <option name="modulesBuildClasspath">
+                <map>
+                  <entry key="$PROJECT_DIR$">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first/GradleRIO/2020.1.1-beta-1/1e562aa17871c41b9d87b355983f1dceca4ff4e6/GradleRIO-2020.1.1-beta-1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a6dc5db8a12928e583bd3f23e72d3ab611ecd58f/gson-2.2.4-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first/gradle-cpp-vscode/0.9.4/1a40a9386194d36a6d1c16daaa914f55d1e1106b/gradle-cpp-vscode-0.9.4-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first/native-utils/2020.1.5/edb263ccd433ac1bf653d4dc4e067fabbd336977/native-utils-2020.1.5-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first/ToolchainPlugin/2020.1.5/9e14bb197c7103918484e5bea3986961ce8a0993/ToolchainPlugin-2020.1.5-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/jaci.gradle/EmbeddedTools/2019.10.1/e58f362cf27c6289b6af4e0c53f281b92d2bbd96/EmbeddedTools-2019.10.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.undercouch/gradle-download-task/4.0.0/38c759a3bc62ef4cf22127304467c4c7fd8df9ba/gradle-download-task-4.0.0-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jcraft/jsch/0.1.53/791359d94d6edcace686a56d0727ee093a2f7c33/jsch-0.1.53-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first/GradleRIO/2020.1.1-beta-1/541dd07e159c46d8b087b4007579502a04a4d61b/GradleRIO-2020.1.1-beta-1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first/gradle-cpp-vscode/0.9.4/7bd0ee40a3816e410ebb22753cfce0db015bafc4/gradle-cpp-vscode-0.9.4.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first/native-utils/2020.1.5/e4a2c2c8660d76a1127e7e6a5db0f5919325ff7d/native-utils-2020.1.5.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first/ToolchainPlugin/2020.1.5/7e40d17802dbf3b4cf48359e03876a018216254c/ToolchainPlugin-2020.1.5.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/jaci.gradle/EmbeddedTools/2019.10.1/999c3aba3d81a1db8cee8f372dad98a73d52d5ee/EmbeddedTools-2019.10.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.undercouch/gradle-download-task/4.0.0/62c29eba57e69dff0ce73d2258a33b9ff067942a/gradle-download-task-4.0.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jcraft/jsch/0.1.53/658b682d5c817b27ae795637dfec047c63d29935/jsch-0.1.53.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="name" value="BrisketExperiments" />
+              <option name="projectBuildClasspath">
+                <list>
+                  <option value="C:/Gradle/gradle-5.6.1/lib/ant-1.9.14.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/ant-launcher-1.9.14.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-api-metadata-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-base-services-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-base-services-groovy-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-bootstrap-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-build-cache-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-build-cache-packaging-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-build-option-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-cli-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-core-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-core-api-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-docs-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-execution-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-file-collections-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-files-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-hashing-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-installation-beacon-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-instant-execution-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-jvm-services-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-kotlin-dsl-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-kotlin-dsl-tooling-models-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-launcher-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-logging-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-messaging-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-model-core-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-model-groovy-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-native-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-persistent-cache-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-pineapple-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-process-services-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-resources-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-runtime-api-info-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-snapshots-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-tooling-api-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-worker-processes-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/gradle-wrapper-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-announce-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-antlr-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-build-cache-http-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-build-comparison-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-build-init-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-build-profile-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-code-quality-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-composite-builds-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-dependency-management-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-diagnostics-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-ear-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-ide-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-ide-native-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-ide-play-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-ivy-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-jacoco-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-javascript-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-kotlin-dsl-provider-plugins-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-kotlin-dsl-tooling-builders-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-language-groovy-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-language-java-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-language-jvm-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-language-native-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-language-scala-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-maven-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-osgi-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-platform-base-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-platform-jvm-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-platform-native-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-platform-play-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-plugin-development-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-plugin-use-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-plugins-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-publish-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-reporting-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-resources-gcs-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-resources-http-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-resources-s3-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-resources-sftp-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-scala-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-signing-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-test-kit-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-testing-base-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-testing-junit-platform-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-testing-jvm-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-testing-native-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-tooling-api-builders-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-tooling-native-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-version-control-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/gradle-workers-5.6.1.jar" />
+                  <option value="C:/Gradle/gradle-5.6.1/lib/plugins/ivy-2.3.0.jar" />
+                </list>
+              </option>
+            </ExternalProjectBuildClasspathPojo>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../../1323DeepSpace" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../2019Competition" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../2019CompetitionForked/2019Competition" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../2019ControlsUpdate" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../2019IterativeOffseason" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+        <entry key="$USER_HOME$/OneDrive/Documents/GitHub/2018Bot" value="PREVIEW" />
+        <entry key="$USER_HOME$/OneDrive/Documents/GitHub/5190-Offseason-2018" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/frc/team2714/robot/RobotContainer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/frc/team2714/robot/commands/DriverControl.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="952" />
+    <option name="y" value="-8" />
+    <option name="width" value="976" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="BrisketExperiments" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrisketExperiments" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="BrisketExperiments" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrisketExperiments" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BrisketExperiments" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrisketExperiments" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="BrisketExperiments" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrisketExperiments" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BrisketExperiments" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrisketExperiments" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BrisketExperiments" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrisketExperiments" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="commands" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1572196205438" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\gagan\Documents\GitHub\2020JavaBeta\BrisketExperiments\src\main\java\frc\team2714\robot" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" value="" />
+      </ExternalSystemSettings>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1dd59101-4b29-4592-9635-1eab993062ee" name="Default Changelist" comment="" />
+      <created>1572196006236</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572196006236</updated>
+      <workItem from="1572196007499" duration="197000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="197000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="UI Designer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Build" weight="0.32929516" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Gradle" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team2714/robot/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team2714/robot/RobotContainer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team2714/robot/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team2714/robot/commands/DriverControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/frc/team2714/robot/Robot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="27" column="71" selection-start-line="27" selection-start-column="71" selection-end-line="27" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
