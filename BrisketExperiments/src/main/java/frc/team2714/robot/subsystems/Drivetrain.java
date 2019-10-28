@@ -30,7 +30,22 @@ public class Drivetrain extends SubsystemBase {
 	private static final double kTrackWidth = 3; // feet
 	private static final double kWheelRadius = 3.0/12; // feet
 	private static final int kShaftEncoderResolution = 8192; // counts per revolution bore encoder
-	private static final double positionChangePerRotation = 8.6190767288208; //
+	private static final double positionChangePerRotation = 8.6190767288208; // Motor rotation per shaft rotation
+	public static final double kMaxVelocity = 13; // feet per second
+	public static final double kMaxAcceleration = 10; // Max Acceleration fet per second squared
+
+	public static final double ksVolts = 0; // Constant feedforward term for the robot drive.
+	public static final double kvVoltSecondsPerFeet = 0; // Velocity-proportional feedforward term for the robot drive
+	public static final double kaVoltSecondsSquaredPerFeet = 0; //Acceleration-proportional feedforward term for the robot
+
+	// Tuning parameter (b > 0) for which larger values make convergence more aggressive like a proportional term
+	public static final double kRamseteB = 0;
+
+	// Tuning parameter (0 &lt; zeta &lt; 1) for which larger values provide more damping in response
+	public static final double kRamseteZeta = 0;
+
+	public static final double kPDriveVel = 0;
+
 
 	private final DifferentialDriveKinematics m_kinematics =
 			new DifferentialDriveKinematics(kTrackWidth);
@@ -98,9 +113,6 @@ public class Drivetrain extends SubsystemBase {
 
 	}
 
-	public void setCurvatureDrive(double xSpeed, double ySpeed){
-		differentialDrive.curvatureDrive(xSpeed, ySpeed, true);
-	}
 
 	/**
 	 * Returns the angle of the robot as a Rotation2d.
@@ -123,6 +135,10 @@ public class Drivetrain extends SubsystemBase {
 	 */
 	public DifferentialDriveWheelSpeeds getCurrentSpeeds() {
 		return new DifferentialDriveWheelSpeeds(getLeftNeoVelocity(), getRightNeoVelocity());
+	}
+
+	public DifferentialDriveKinematics getKinematics() {
+		return m_kinematics;
 	}
 
 	/**
@@ -151,6 +167,20 @@ public class Drivetrain extends SubsystemBase {
 	public Pose2d getCurrentPose(){
 		return currentPose;
 	}
+
+	public void setCurvatureDrive(double xSpeed, double ySpeed){
+		differentialDrive.curvatureDrive(xSpeed, ySpeed, true);
+	}
+
+	public void setTankDrive(double leftVel, double rightVel){
+		differentialDrive.tankDrive(leftVel, rightVel);
+	}
+
+	public void setClosedLoopTank(double leftVel, double rightVel){
+		differentialDrive.tankDrive(leftVel, rightVel);
+	}
+
+
 
 
 	/**

@@ -20,6 +20,4 @@ public class Constants {
 	public static int p_wristEncoderA = 6;
 	public static int p_wristEncoderB = 7;
 
-	public static final double kMaxSpeed = 12; // feet per second
-
 }
