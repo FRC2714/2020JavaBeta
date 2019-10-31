@@ -69,7 +69,7 @@ public class Drivetrain extends SubsystemBase {
 			CounterBase.EncodingType.k4X);
 
 	//NavX
-	AHRS navx = new AHRS(SPI.Port.kMXP);
+	AHRS navx;
 
 	private DifferentialDrive differentialDrive;
 
@@ -99,6 +99,17 @@ public class Drivetrain extends SubsystemBase {
 		rMotor1.setIdleMode(CANSparkMax.IdleMode.kBrake);
 		rMotor2.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
+		lMotor0.enableVoltageCompensation(12.1);
+		rMotor0.enableVoltageCompensation(12.1);
+
+		lMotor0.setSmartCurrentLimit(50);
+		lMotor1.setSmartCurrentLimit(50);
+		lMotor2.setSmartCurrentLimit(50);
+
+		rMotor0.setSmartCurrentLimit(50);
+		rMotor1.setSmartCurrentLimit(50);
+		rMotor2.setSmartCurrentLimit(50);
+
 		differentialDrive = new DifferentialDrive(lMotor0, rMotor0);
 		differentialDrive.setSafetyEnabled(false);
 
@@ -111,6 +122,8 @@ public class Drivetrain extends SubsystemBase {
 		leftShaftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kShaftEncoderResolution);
 		rightShaftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kShaftEncoderResolution);
 
+		navx = new AHRS(SPI.Port.kMXP);
+		navx.reset();
 	}
 
 
@@ -125,7 +138,7 @@ public class Drivetrain extends SubsystemBase {
 	}
 
 	public Rotation2d getAngle(){
-		return Rotation2d.fromDegrees(Math.IEEEremainder(navx.getFusedHeading(), 360) * -1);
+		return Rotation2d.fromDegrees(Math.IEEEremainder(navx.getYaw(), 360) * -1);
 	}
 
 	/**
@@ -145,7 +158,7 @@ public class Drivetrain extends SubsystemBase {
 	 * Updates the field-relative position.
 	 */
 	public Pose2d updateOdometry() {
-		return m_odometry.update(getFakeAngle(), getCurrentSpeeds());
+		return m_odometry.update(getAngle(), getCurrentSpeeds());
 	}
 
 	/**
@@ -196,9 +209,7 @@ public class Drivetrain extends SubsystemBase {
 		SmartDashboard.putNumber("X Pose", currentPose.getTranslation().getX());
 		SmartDashboard.putNumber("Y Pose", currentPose.getTranslation().getY());
 
-
-		SmartDashboard.putNumber("Raw Joystick 1 = " , RobotContainer.driverStick.getRawAxis(1));
-		SmartDashboard.putNumber("Raw Joystick 4 = " , RobotContainer.driverStick.getRawAxis(4));
+		SmartDashboard.putNumber("NavX Angle", navx.getYaw());
 
 	}
 }

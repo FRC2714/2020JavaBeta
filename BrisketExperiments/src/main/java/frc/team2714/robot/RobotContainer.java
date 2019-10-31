@@ -10,6 +10,8 @@ package frc.team2714.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -19,6 +21,7 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import frc.team2714.robot.commands.DriverControl;
 import frc.team2714.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -39,6 +42,7 @@ public class RobotContainer {
 	private final Drivetrain drivetrain = new Drivetrain();
 
 	public static Joystick driverStick = new Joystick(0);
+	public DriverControl driverControl = new DriverControl(drivetrain);
 
 
 	/**
@@ -109,6 +113,8 @@ public class RobotContainer {
 				drivetrain
 		);
 
-		return null;
+		System.out.println(testTrajectory);
+
+		return driverControl;
 	}
 }

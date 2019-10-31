@@ -84,12 +84,9 @@ public class Robot extends TimedRobot {
 		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 		m_autonomousCommand.initialize();
 		m_autonomousCommand.schedule();
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
+
 		if (m_autonomousCommand != null) {
-//      m_autonomousCommand.cancel();
+            m_autonomousCommand.cancel();
 		}
 	}
 
