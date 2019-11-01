@@ -8,8 +8,10 @@
 package frc.team2714.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
@@ -34,9 +36,9 @@ public class Drivetrain extends SubsystemBase {
 	public static final double kMaxVelocity = 13; // feet per second
 	public static final double kMaxAcceleration = 10; // Max Acceleration fet per second squared
 
-	public static final double ksVolts = 0; // Constant feedforward term for the robot drive.
-	public static final double kvVoltSecondsPerFeet = 0; // Velocity-proportional feedforward term for the robot drive
-	public static final double kaVoltSecondsSquaredPerFeet = 0; //Acceleration-proportional feedforward term for the robot
+	public static final double ksVolts = 0.149; // Constant feedforward term for the robot drive.
+	public static final double kvVoltSecondsPerFeet = 0.683; // Velocity-proportional feedforward term for the robot drive
+	public static final double kaVoltSecondsSquaredPerFeet = 0.148; //Acceleration-proportional feedforward term for the robot
 
 	// Tuning parameter (b > 0) for which larger values make convergence more aggressive like a proportional term
 	public static final double kRamseteB = 0;
@@ -45,6 +47,19 @@ public class Drivetrain extends SubsystemBase {
 	public static final double kRamseteZeta = 0;
 
 	public static final double kPDriveVel = 0;
+
+
+	private final double kMinOutput = -1;
+	private final double kMaxOutput = 1;
+
+	//PID Constants
+	private final double kP = 4.8e-5;
+	private final double kI = 5.0e-7;
+	private final double kD = 0.0;
+	private final double kIS = 0.0;
+
+	private final double lKFF = 1.77e-4;
+	private final double rKFF = 1.78e-4;
 
 
 	private final DifferentialDriveKinematics m_kinematics =
@@ -68,11 +83,26 @@ public class Drivetrain extends SubsystemBase {
 	private Encoder rightShaftEncoder = new Encoder(Constants.p_rightEncoderA, Constants.p_rightEncoderB, true,
 			CounterBase.EncodingType.k4X);
 
+	//PID Controller
+	private CANPIDController lPidController;
+	private CANPIDController rPidController;
+
 	//NavX
-	AHRS navx;
+	private AHRS navx;
 
 	private DifferentialDrive differentialDrive;
 
+	private static Drivetrain drivetrainInstance;
+
+	/**
+	 * Return only once instance of a drivetrain.
+	 * @return an instance of the drivetrain.
+	 */
+	public static Drivetrain getInstance(){
+		if (drivetrainInstance == null)
+			drivetrainInstance = new Drivetrain();
+		return drivetrainInstance;
+	}
 
 
 	/**
@@ -122,8 +152,26 @@ public class Drivetrain extends SubsystemBase {
 		leftShaftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kShaftEncoderResolution);
 		rightShaftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kShaftEncoderResolution);
 
+		// Setup up PID coefficients
+		lPidController = lMotor0.getPIDController();
+		lPidController.setP(kP);
+		lPidController.setI(kI);
+		lPidController.setD(kD);
+		lPidController.setIZone(kIS);
+		lPidController.setFF(lKFF);
+		lPidController.setOutputRange(kMinOutput, kMaxOutput);
+
+		rPidController = rMotor0.getPIDController();
+		rPidController.setP(kP);
+		rPidController.setI(kI);
+		rPidController.setD(kD);
+		rPidController.setIZone(kIS);
+		rPidController.setFF(rKFF);
+		rPidController.setOutputRange(kMinOutput, kMaxOutput);
+
 		navx = new AHRS(SPI.Port.kMXP);
 		navx.reset();
+		navx.zeroYaw();
 	}
 
 
@@ -189,8 +237,15 @@ public class Drivetrain extends SubsystemBase {
 		differentialDrive.tankDrive(leftVel, rightVel);
 	}
 
+	public double getAverageVelocity(){
+		return ((getLeftNeoVelocity() + getRightNeoVelocity()) / 2);
+	}
+
 	public void setClosedLoopTank(double leftVel, double rightVel){
-		differentialDrive.tankDrive(leftVel, rightVel);
+
+		System.out.println("Left and Right : " + leftVel + " | " + -rightVel);
+		lPidController.setReference(((leftVel * positionChangePerRotation) / (2 * Math.PI * kWheelRadius)) * 60, ControlType.kVelocity);
+		rPidController.setReference(-((rightVel * positionChangePerRotation) / (2 * Math.PI * kWheelRadius)) * 60, ControlType.kVelocity);
 	}
 
 

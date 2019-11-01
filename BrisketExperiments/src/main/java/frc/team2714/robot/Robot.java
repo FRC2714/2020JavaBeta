@@ -10,8 +10,10 @@ package frc.team2714.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.team2714.robot.subsystems.Drivetrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,8 +22,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-	private Command m_autonomousCommand;
 
+	private Command m_autonomousCommand;
 	private RobotContainer m_robotContainer;
 
 	/**
@@ -65,10 +67,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+		m_autonomousCommand.initialize();
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
-//      m_autonomousCommand.schedule();
+			m_autonomousCommand.schedule();
 		}
 	}
 
@@ -77,17 +80,22 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("Expected Speed", 5);
+		SmartDashboard.putNumber("Average Velocity", Drivetrain.getInstance().getAverageVelocity());
+		SmartDashboard.putNumber("Left Velocity", Drivetrain.getInstance().getLeftNeoVelocity());
+		SmartDashboard.putNumber("Right Velocity", Drivetrain.getInstance().getRightNeoVelocity());
 	}
 
 	@Override
 	public void teleopInit() {
-		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-		m_autonomousCommand.initialize();
-		m_autonomousCommand.schedule();
 
 		if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
 		}
+		Command driverControl = m_robotContainer.getDriverControl();
+		driverControl.initialize();
+		driverControl.schedule();
+
 	}
 
 	/**
