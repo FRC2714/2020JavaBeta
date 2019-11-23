@@ -36,10 +36,10 @@ public class DriverControl extends CommandBase {
 		double rawX = RobotContainer.driverStick.getRawAxis(1);
 		double rawPivot = RobotContainer.driverStick.getRawAxis(4);
 
-		if(Math.abs(rawX) < 0.04)
+		if(Math.abs(rawX) < 0.07)
 			rawX = 0;
 
-		if(Math.abs(rawPivot) < 0.04)
+		if(Math.abs(rawPivot) < 0.07)
 			rawPivot = 0;
 
 		drivetrain.setCurvatureDrive(-rawX, rawPivot);

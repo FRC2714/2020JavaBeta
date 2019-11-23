@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -20,6 +19,7 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.team2714.robot.commands.DriverControl;
 import frc.team2714.robot.subsystems.Drivetrain;
@@ -93,9 +93,10 @@ public class RobotContainer {
 				// Pass through these two interior waypoints, making an 's' curve path
 				List.of(
 						new Pose2d(0, 0, new Rotation2d(0)),
-						new Pose2d(6, 0, new Rotation2d(0)),
-						new Pose2d(8, -2, new Rotation2d(-90)),
-						new Pose2d(8, -8, new Rotation2d(-90))
+						new Pose2d(4, 0, new Rotation2d(0)),
+						new Pose2d(13, -4, new Rotation2d(20)),
+						new Pose2d(14.5,-4,new Rotation2d(20))
+//						new Pose2d(8, -8, new Rotation2d(-90))
 				),
 				// Pass config
 				config
@@ -105,31 +106,22 @@ public class RobotContainer {
 				quinticTrajectory,
 				drivetrain::getCurrentPose,
 				new RamseteController(kRamseteB, kRamseteZeta),
-				ksVolts,
-				kvVoltSecondsPerFeet,
-				kaVoltSecondsSquaredPerFeet,
 				drivetrain.getKinematics(),
-				drivetrain::getLeftNeoVelocity,
-				drivetrain::getRightNeoVelocity,
-				new PIDController(kPDriveVel, 0, 0),
-				new PIDController(kPDriveVel, 0, 0),
-				// CustomRamseteCommand passes volts to the callback, so we have to rescale here
-//				(left, right) -> drivetrain.setTankDrive(left / 12., right / 12.),
-				(left, right) -> drivetrain.setClosedLoopTank(left,right),
+				drivetrain::setClosedLoopTank, //print out if this is actually working if unsure
 				drivetrain
 		);
 
-		CustomRamseteCommand ramseteOtherConstructor = new CustomRamseteCommand(
+		CustomRamseteCommand customRamseteCommand = new CustomRamseteCommand(
 				quinticTrajectory,
 				drivetrain::getCurrentPose,
 				new RamseteController(kRamseteB, kRamseteZeta),
 				drivetrain.getKinematics(),
-				(left, right) -> drivetrain.setClosedLoopTank(left,right), //print out if this is actually working if unsure
+				drivetrain::setClosedLoopTank, //print out if this is actually working if unsure
 				drivetrain
 		);
 //		System.out.println(quinticTrajectory);
 
-		return ramseteOtherConstructor;
+		return ramseteCommand.andThen(() -> drivetrain.setClosedLoopTank(0,0));
 	}
 
 	public Command getDriverControl(){

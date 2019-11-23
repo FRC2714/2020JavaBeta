@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2714.robot.Constants;
-import frc.team2714.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -41,7 +40,7 @@ public class Drivetrain extends SubsystemBase {
 	public static final double kaVoltSecondsSquaredPerFeet = 0.148; //Acceleration-proportional feedforward term for the robot
 
 	// Tuning parameter (b > 0) for which larger values make convergence more aggressive like a proportional term
-	public static final double kRamseteB = 0;
+	public static final double kRamseteB = 0.07;
 
 	// Tuning parameter (0 &lt; zeta &lt; 1) for which larger values provide more damping in response
 	public static final double kRamseteZeta = 0;
@@ -65,8 +64,8 @@ public class Drivetrain extends SubsystemBase {
 	private final DifferentialDriveKinematics m_kinematics =
 			new DifferentialDriveKinematics(kTrackWidth);
 
-	private final DifferentialDriveOdometry m_odometry =
-			new DifferentialDriveOdometry(m_kinematics);
+	private final DifferentialDriveOdometry m_odometer =
+			new DifferentialDriveOdometry(m_kinematics, new Rotation2d());
 
 	private Pose2d currentPose;
 
@@ -186,7 +185,7 @@ public class Drivetrain extends SubsystemBase {
 	}
 
 	public Rotation2d getAngle(){
-		return Rotation2d.fromDegrees(Math.IEEEremainder(navx.getYaw(), 360) * -1);
+		return Rotation2d.fromDegrees(Math.IEEEremainder(-navx.getYaw(), 360));
 	}
 
 	/**
@@ -206,7 +205,7 @@ public class Drivetrain extends SubsystemBase {
 	 * Updates the field-relative position.
 	 */
 	public Pose2d updateOdometry() {
-		return m_odometry.update(getAngle(), getCurrentSpeeds());
+		return m_odometer.update(getAngle(), getCurrentSpeeds());
 	}
 
 	/**
@@ -233,9 +232,7 @@ public class Drivetrain extends SubsystemBase {
 		differentialDrive.curvatureDrive(xSpeed, ySpeed, true);
 	}
 
-	public void setTankDrive(double leftVel, double rightVel){
-		differentialDrive.tankDrive(leftVel, rightVel);
-	}
+	public void setTankDrive(double leftVel, double rightVel) { differentialDrive.tankDrive(leftVel, rightVel); }
 
 	public double getAverageVelocity(){
 		return ((getLeftNeoVelocity() + getRightNeoVelocity()) / 2);
@@ -258,13 +255,15 @@ public class Drivetrain extends SubsystemBase {
 	public void periodic() {
 		currentPose = updateOdometry();
 
+		System.out.println("NavX Angle" + getAngle().getDegrees());
+
 		SmartDashboard.putNumber("Left NEO Encoder Speed Ft/s", getLeftNeoVelocity());
 		SmartDashboard.putNumber("Right NEO Encoder Speed Ft/s", getRightNeoVelocity());
 
 		SmartDashboard.putNumber("X Pose", currentPose.getTranslation().getX());
 		SmartDashboard.putNumber("Y Pose", currentPose.getTranslation().getY());
 
-		SmartDashboard.putNumber("NavX Angle", navx.getYaw());
-
+		SmartDashboard.putNumber("NavX Angle", getAngle().getDegrees());
+		
 	}
 }
