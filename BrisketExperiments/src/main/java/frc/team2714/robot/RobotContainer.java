@@ -93,7 +93,8 @@ public class RobotContainer {
 				// Pass through these two interior waypoints, making an 's' curve path
 				List.of(
 						new Pose2d(0, 0, new Rotation2d(0)),
-						new Pose2d(5, 5, new Rotation2d(0))
+						new Pose2d(8.393,4.925,new Rotation2d(0)),
+						new Pose2d(15.754,1.479,new Rotation2d(Math.toRadians(-100)))
 				),
 				// Pass config
 				config
@@ -118,7 +119,7 @@ public class RobotContainer {
 		);
 //		System.out.println(quinticTrajectory);
 
-		return ramseteCommand.andThen(() -> drivetrain.setClosedLoopTank(0,0));
+		return ramseteCommand.andThen(() -> drivetrain.stopAll());
 	}
 
 	public Command getDriverControl(){

@@ -41,7 +41,7 @@ public class Drivetrain extends SubsystemBase {
 	public static final double kaVoltSecondsSquaredPerFeet = 0.148; //Acceleration-proportional feedforward term for the robot
 
 	// Tuning parameter (b > 0) for which larger values make convergence more aggressive like a proportional term
-	public static final double kRamseteB = 0.07;
+	public static final double kRamseteB = 0.0;
 
 	// Tuning parameter (0 &lt; zeta &lt; 1) for which larger values provide more damping in response
 	public static final double kRamseteZeta = 0;
@@ -240,10 +240,17 @@ public class Drivetrain extends SubsystemBase {
 	}
 
 	public void setClosedLoopTank(double leftVel, double rightVel){
-
+	
 		System.out.println("Left and Right : " + leftVel + " | " + -rightVel);
+		System.out.println("ENDED PATH");
 		lPidController.setReference(((leftVel * positionChangePerRotation) / (2 * Math.PI * kWheelRadius)) * 60, ControlType.kVelocity);
 		rPidController.setReference(-((rightVel * positionChangePerRotation) / (2 * Math.PI * kWheelRadius)) * 60, ControlType.kVelocity);
+	}
+
+	public void stopAll(){
+		System.out.println("STOPPING ALL");
+		lMotor0.set(0);
+		rMotor0.set(0);
 	}
 
 
@@ -264,7 +271,7 @@ public class Drivetrain extends SubsystemBase {
 		SmartDashboard.putNumber("X Pose", currentPose.getTranslation().getX());
 		SmartDashboard.putNumber("Y Pose", currentPose.getTranslation().getY());
 
-		SmartDashboard.putNumber("NavX Angle", getAngle().getDegrees());
+		// SmartDashboard.putNumber("NavX Angle", getAngle().getDegrees());
 		
 		
 	}
