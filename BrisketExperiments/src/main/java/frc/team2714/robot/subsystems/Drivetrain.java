@@ -12,6 +12,7 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.ControlType;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
@@ -61,10 +62,10 @@ public class Drivetrain extends SubsystemBase {
 	private final double rKFF = 1.78e-4;
 
 
-	private final DifferentialDriveKinematics m_kinematics =
+	private DifferentialDriveKinematics m_kinematics =
 			new DifferentialDriveKinematics(kTrackWidth);
 
-	private final DifferentialDriveOdometry m_odometer =
+	private DifferentialDriveOdometry m_odometer =
 			new DifferentialDriveOdometry(m_kinematics, new Rotation2d());
 
 	private Pose2d currentPose;
@@ -91,7 +92,7 @@ public class Drivetrain extends SubsystemBase {
 
 	private DifferentialDrive differentialDrive;
 
-	private static Drivetrain drivetrainInstance;
+	private static Drivetrain drivetrainInstance = null;
 
 	/**
 	 * Return only once instance of a drivetrain.
@@ -264,6 +265,7 @@ public class Drivetrain extends SubsystemBase {
 		SmartDashboard.putNumber("Y Pose", currentPose.getTranslation().getY());
 
 		SmartDashboard.putNumber("NavX Angle", getAngle().getDegrees());
+		
 		
 	}
 }
