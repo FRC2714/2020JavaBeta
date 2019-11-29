@@ -28,38 +28,38 @@ import frc.team2714.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
 
-	private static final double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
-	private static final double kTrackWidth = 3; // feet
-	private static final double kWheelRadius = 3.0/12; // feet
-	private static final int kShaftEncoderResolution = 8192; // counts per revolution bore encoder
-	private static final double positionChangePerRotation = 8.6190767288208; // Motor rotation per shaft rotation
-	public static final double kMaxVelocity = 13; // feet per second
-	public static final double kMaxAcceleration = 10; // Max Acceleration fet per second squared
+	private static double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
+	private static double kTrackWidth = 3; // feet
+	private static double kWheelRadius = 3.0/12; // feet
+	private static int kShaftEncoderResolution = 8192; // counts per revolution bore encoder
+	private static double positionChangePerRotation = 8.6190767288208; // Motor rotation per shaft rotation
+	public static double kMaxVelocity = 13; // feet per second
+	public static double kMaxAcceleration = 6; // Max Acceleration fet per second squared
 
-	public static final double ksVolts = 0.149; // Constant feedforward term for the robot drive.
-	public static final double kvVoltSecondsPerFeet = 0.683; // Velocity-proportional feedforward term for the robot drive
-	public static final double kaVoltSecondsSquaredPerFeet = 0.148; //Acceleration-proportional feedforward term for the robot
+	public static double ksVolts = 0.149; // Constant feedforward term for the robot drive.
+	public static double kvVoltSecondsPerFeet = 0.683; // Velocity-proportional feedforward term for the robot drive
+	public static double kaVoltSecondsSquaredPerFeet = 0.148; //Acceleration-proportional feedforward term for the robot
 
 	// Tuning parameter (b > 0) for which larger values make convergence more aggressive like a proportional term
-	public static final double kRamseteB = 0.0;
+	public static double kRamseteB = 0.1;
 
 	// Tuning parameter (0 &lt; zeta &lt; 1) for which larger values provide more damping in response
-	public static final double kRamseteZeta = 0;
+	public static double kRamseteZeta = 0;
 
-	public static final double kPDriveVel = 0;
+	public static double kPDriveVel = 0;
 
 
-	private final double kMinOutput = -1;
-	private final double kMaxOutput = 1;
+	private double kMinOutput = -1;
+	private double kMaxOutput = 1;
 
 	//PID Constants
-	private final double kP = 4.8e-5;
-	private final double kI = 5.0e-7;
-	private final double kD = 0.0;
-	private final double kIS = 0.0;
+	private double kP = 4.8e-5;
+	private double kI = 5.0e-7;
+	private double kD = 0.0;
+	private double kIS = 0.0;
 
-	private final double lKFF = 1.77e-4;
-	private final double rKFF = 1.78e-4;
+	private double lKFF = 1.77e-4;
+	private double rKFF = 1.78e-4;
 
 
 	private DifferentialDriveKinematics m_kinematics =

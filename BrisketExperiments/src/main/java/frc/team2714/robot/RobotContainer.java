@@ -39,7 +39,7 @@ public class RobotContainer {
 
 
 	// The robot's subsystems and commands are defined here...
-	private final Drivetrain drivetrain = Drivetrain.getInstance();
+	private Drivetrain drivetrain = Drivetrain.getInstance();
 
 	public static Joystick driverStick = new Joystick(0);
 	public DriverControl driverControl = new DriverControl(drivetrain);
@@ -93,8 +93,8 @@ public class RobotContainer {
 				// Pass through these two interior waypoints, making an 's' curve path
 				List.of(
 						new Pose2d(0, 0, new Rotation2d(0)),
-						new Pose2d(8.393,4.925,new Rotation2d(0)),
-						new Pose2d(15.754,1.479,new Rotation2d(Math.toRadians(-100)))
+						new Pose2d(7,2.5,new Rotation2d(0)),
+						new Pose2d(15,0,new Rotation2d().fromDegrees(-90))
 				),
 				// Pass config
 				config
