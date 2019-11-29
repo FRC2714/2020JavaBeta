@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -19,11 +18,11 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.team2714.robot.commands.DriverControl;
 import frc.team2714.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.team2714.robot.util.BBQRamseteCommand;
 
 import java.util.List;
 
@@ -109,7 +108,7 @@ public class RobotContainer {
 				drivetrain
 		);
 
-		CustomRamseteCommand customRamseteCommand = new CustomRamseteCommand(
+		BBQRamseteCommand BBQRamseteCommand = new BBQRamseteCommand(
 				quinticTrajectory,
 				drivetrain::getCurrentPose,
 				new RamseteController(kRamseteB, kRamseteZeta),
