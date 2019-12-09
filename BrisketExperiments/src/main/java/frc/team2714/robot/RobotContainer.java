@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.team2714.robot.commands.DriverControl;
 import frc.team2714.robot.subsystems.Drivetrain;
@@ -38,7 +39,7 @@ public class RobotContainer {
 
 
 	// The robot's subsystems and commands are defined here...
-	private Drivetrain drivetrain = Drivetrain.getInstance();
+	private Drivetrain drivetrain = new Drivetrain();
 
 	public static Joystick driverStick = new Joystick(0);
 	public DriverControl driverControl = new DriverControl(drivetrain);
@@ -68,21 +69,23 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
+//		drivetrain.resetCustomPosition(10,-4.5);
 
 		TrajectoryConfig config =
-				new TrajectoryConfig(5, Drivetrain.kMaxAcceleration)
+				new TrajectoryConfig(Units.feetToMeters(4), Units.feetToMeters(Drivetrain.kMaxAcceleration))
 						.setKinematics(drivetrain.getKinematics());
 
 
+
 		// An example trajectory to follow.  All units in meters.
-		Trajectory testTrajectory = TrajectoryGenerator.generateTrajectory(
+		Trajectory simpleSCurve = TrajectoryGenerator.generateTrajectory(
 				// Start at the origin facing the +X direction
-				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(0, 0, new Rotation2d().fromDegrees(0)),
 				// Pass through these two interior waypoints, making an 's' curve path
 				List.of(
-						new Translation2d(2, 0)
+						new Translation2d(Units.feetToMeters(5), Units.feetToMeters(-2.5))
 				),
-				new Pose2d(4, 0, new Rotation2d(0)),
+				new Pose2d(Units.feetToMeters(10), Units.feetToMeters(-4.5), new Rotation2d().fromDegrees(0)),
 				// Pass config
 				config
 		);
@@ -91,16 +94,16 @@ public class RobotContainer {
 				// Start at the origin facing the +X direction
 				// Pass through these two interior waypoints, making an 's' curve path
 				List.of(
-						new Pose2d(0, 0, new Rotation2d(0)),
-						new Pose2d(7,2.5,new Rotation2d(0)),
-						new Pose2d(15,0,new Rotation2d().fromDegrees(-90))
+						new Pose2d(Units.feetToMeters(0), Units.feetToMeters(0), new Rotation2d(0)),
+						new Pose2d(Units.feetToMeters(5),Units.feetToMeters(-5),new Rotation2d(-90)),
+						new Pose2d(Units.feetToMeters(10),Units.feetToMeters(-10),new Rotation2d(0))
 				),
 				// Pass config
 				config
 		);
 
 		RamseteCommand ramseteCommand = new RamseteCommand(
-				quinticTrajectory,
+				simpleSCurve,
 				drivetrain::getCurrentPose,
 				new RamseteController(kRamseteB, kRamseteZeta),
 				drivetrain.getKinematics(),
@@ -108,15 +111,22 @@ public class RobotContainer {
 				drivetrain
 		);
 
-		BBQRamseteCommand BBQRamseteCommand = new BBQRamseteCommand(
-				quinticTrajectory,
-				drivetrain::getCurrentPose,
-				new RamseteController(kRamseteB, kRamseteZeta),
-				drivetrain.getKinematics(),
-				drivetrain::setClosedLoopTank, //print out if this is actually working if unsure
-				drivetrain
+		Trajectory square = TrajectoryGenerator.generateTrajectory(
+				// Start at the origin facing the +X direction
+				// Pass through these two interior waypoints, making an 's' curve path
+				List.of(
+						new Pose2d(0, 0, new Rotation2d(0)),
+						new Pose2d(7,0,new Rotation2d(0)),
+						new Pose2d(10,4, Rotation2d.fromDegrees(90)),
+						new Pose2d(10,8, Rotation2d.fromDegrees(90)),
+						new Pose2d(7,10, new Rotation2d().fromDegrees(180)),
+						new Pose2d(3,10, new Rotation2d().fromDegrees(180)),
+						new Pose2d(0,7, new Rotation2d().fromDegrees(-90)),
+						new Pose2d(0,0, new Rotation2d().fromDegrees(-90))
+				),
+				// Pass config
+				config
 		);
-//		System.out.println(quinticTrajectory);
 
 		return ramseteCommand.andThen(() -> drivetrain.stopAll());
 	}

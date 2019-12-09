@@ -39,7 +39,7 @@ public class DriverControl extends CommandBase {
 		if(Math.abs(rawX) < 0.07)
 			rawX = 0;
 
-		if(Math.abs(rawPivot) < 0.07)
+		if(Math.abs(rawPivot) < 0.1)
 			rawPivot = 0;
 
 		drivetrain.setCurvatureDrive(-rawX, rawPivot);

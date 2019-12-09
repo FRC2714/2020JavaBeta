@@ -15,6 +15,7 @@ import com.revrobotics.ControlType;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -23,6 +24,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2714.robot.Constants;
 
@@ -34,17 +36,17 @@ public class Drivetrain extends SubsystemBase {
 	private static int kShaftEncoderResolution = 8192; // counts per revolution bore encoder
 	private static double positionChangePerRotation = 8.6190767288208; // Motor rotation per shaft rotation
 	public static double kMaxVelocity = 13; // feet per second
-	public static double kMaxAcceleration = 6; // Max Acceleration fet per second squared
+	public static double kMaxAcceleration = 3; // Max Acceleration fet per second squared
 
 	public static double ksVolts = 0.149; // Constant feedforward term for the robot drive.
 	public static double kvVoltSecondsPerFeet = 0.683; // Velocity-proportional feedforward term for the robot drive
 	public static double kaVoltSecondsSquaredPerFeet = 0.148; //Acceleration-proportional feedforward term for the robot
 
 	// Tuning parameter (b > 0) for which larger values make convergence more aggressive like a proportional term
-	public static double kRamseteB = 0.1;
+	public static double kRamseteB = 2;
 
 	// Tuning parameter (0 &lt; zeta &lt; 1) for which larger values provide more damping in response
-	public static double kRamseteZeta = 0;
+	public static double kRamseteZeta = 0.7;
 
 	public static double kPDriveVel = 0;
 
@@ -63,10 +65,9 @@ public class Drivetrain extends SubsystemBase {
 
 
 	private DifferentialDriveKinematics m_kinematics =
-			new DifferentialDriveKinematics(kTrackWidth);
+			new DifferentialDriveKinematics(Units.feetToMeters(kTrackWidth));
 
-	private DifferentialDriveOdometry m_odometer =
-			new DifferentialDriveOdometry(m_kinematics, new Rotation2d());
+	private DifferentialDriveOdometry m_odometer;
 
 	private Pose2d currentPose;
 
@@ -109,12 +110,12 @@ public class Drivetrain extends SubsystemBase {
 	 * Creates a new Drivetrain.
 	 */
 	public Drivetrain() {
-		lMotor0 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
-		lMotor1 = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
-		lMotor2 = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
-		rMotor0 = new CANSparkMax(4, CANSparkMaxLowLevel.MotorType.kBrushless);
-		rMotor1 = new CANSparkMax(5, CANSparkMaxLowLevel.MotorType.kBrushless);
-		rMotor2 = new CANSparkMax(6, CANSparkMaxLowLevel.MotorType.kBrushless);
+			lMotor0 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
+			lMotor1 = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
+			lMotor2 = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
+			rMotor0 = new CANSparkMax(4, CANSparkMaxLowLevel.MotorType.kBrushless);
+			rMotor1 = new CANSparkMax(5, CANSparkMaxLowLevel.MotorType.kBrushless);
+			rMotor2 = new CANSparkMax(6, CANSparkMaxLowLevel.MotorType.kBrushless);
 
 		lMotor1.follow(lMotor0);
 		rMotor1.follow(rMotor0);
@@ -129,8 +130,8 @@ public class Drivetrain extends SubsystemBase {
 		rMotor1.setIdleMode(CANSparkMax.IdleMode.kBrake);
 		rMotor2.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-		lMotor0.enableVoltageCompensation(12.1);
-		rMotor0.enableVoltageCompensation(12.1);
+		lMotor0.enableVoltageCompensation(12.0);
+		rMotor0.enableVoltageCompensation(12.0);
 
 		lMotor0.setSmartCurrentLimit(50);
 		lMotor1.setSmartCurrentLimit(50);
@@ -172,6 +173,8 @@ public class Drivetrain extends SubsystemBase {
 		navx = new AHRS(SPI.Port.kMXP);
 		navx.reset();
 		navx.zeroYaw();
+		m_odometer = new DifferentialDriveOdometry(m_kinematics, new Rotation2d().fromDegrees(-navx.getAngle()));
+		m_odometer.resetPosition(new Pose2d(), new Rotation2d().fromDegrees(-navx.getAngle()));
 	}
 
 
@@ -214,7 +217,7 @@ public class Drivetrain extends SubsystemBase {
 	 * @return Left velocity in ft/s approximately.
 	 */
 	public double getLeftNeoVelocity(){
-		return ((lMotor0.getEncoder().getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation;
+		return Units.feetToMeters(((lMotor0.getEncoder().getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation);
 	}
 
 	/**
@@ -222,7 +225,7 @@ public class Drivetrain extends SubsystemBase {
 	 * @return Right velocity in ft/s approximately.
 	 */
 	public double getRightNeoVelocity(){
-		return -((rMotor0.getEncoder().getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation;
+		return -Units.feetToMeters(((rMotor0.getEncoder().getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation);
 	}
 
 	public Pose2d getCurrentPose(){
@@ -240,11 +243,8 @@ public class Drivetrain extends SubsystemBase {
 	}
 
 	public void setClosedLoopTank(double leftVel, double rightVel){
-	
-		System.out.println("Left and Right : " + leftVel + " | " + -rightVel);
-		System.out.println("ENDED PATH");
-		lPidController.setReference(((leftVel * positionChangePerRotation) / (2 * Math.PI * kWheelRadius)) * 60, ControlType.kVelocity);
-		rPidController.setReference(-((rightVel * positionChangePerRotation) / (2 * Math.PI * kWheelRadius)) * 60, ControlType.kVelocity);
+		lPidController.setReference(((Units.metersToFeet(leftVel) * positionChangePerRotation) / (2 * Math.PI * kWheelRadius)) * 60, ControlType.kVelocity);
+		rPidController.setReference(-((Units.metersToFeet(rightVel) * positionChangePerRotation) / (2 * Math.PI * kWheelRadius)) * 60, ControlType.kVelocity);
 	}
 
 	public void stopAll(){
@@ -262,17 +262,27 @@ public class Drivetrain extends SubsystemBase {
 	@Override
 	public void periodic() {
 		currentPose = updateOdometry();
+		SmartDashboard.putNumber("Left NEO Encoder Speed Ft/s", Units.metersToFeet(getLeftNeoVelocity()));
+		SmartDashboard.putNumber("Right NEO Encoder Speed Ft/s", Units.metersToFeet(getRightNeoVelocity()));
 
-		System.out.println("NavX Angle" + getAngle().getDegrees());
+		SmartDashboard.putNumber("X Pose", Units.metersToFeet(currentPose.getTranslation().getX()));
+		SmartDashboard.putNumber("Y Pose", Units.metersToFeet(currentPose.getTranslation().getY()));
 
-		SmartDashboard.putNumber("Left NEO Encoder Speed Ft/s", getLeftNeoVelocity());
-		SmartDashboard.putNumber("Right NEO Encoder Speed Ft/s", getRightNeoVelocity());
+		SmartDashboard.putNumber("X Pose Meters", (currentPose.getTranslation().getX()));
+		SmartDashboard.putNumber("Y Pose Meters", (currentPose.getTranslation().getY()));
 
-		SmartDashboard.putNumber("X Pose", currentPose.getTranslation().getX());
-		SmartDashboard.putNumber("Y Pose", currentPose.getTranslation().getY());
+		SmartDashboard.putNumber("NavX Angle", m_odometer.getPoseMeters().getRotation().getDegrees());
+//		System.out.println("X Pose: " + currentPose.getTranslation().getX() + " | Y Pose: " + currentPose.getTranslation().getY() +
+//				"NavX Angle" + m_odometer.getPoseMeters().getRotation().getDegrees());
+	}
 
-		// SmartDashboard.putNumber("NavX Angle", getAngle().getDegrees());
-		
-		
+	public void resetAll() {
+		navx.reset();
+		m_odometer.resetPosition(new Pose2d(), new Rotation2d().fromDegrees(-navx.getAngle()));
+	}
+
+	public void resetCustomPosition(double x, double y) {
+		navx.reset();
+		m_odometer.resetPosition(new Pose2d(x,y,new Rotation2d()), new Rotation2d().fromDegrees(-navx.getAngle()));
 	}
 }

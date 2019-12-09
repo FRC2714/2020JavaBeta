@@ -79,10 +79,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		SmartDashboard.putNumber("Expected Speed", 5);
-		SmartDashboard.putNumber("Average Velocity", Drivetrain.getInstance().getAverageVelocity());
-		SmartDashboard.putNumber("Left Velocity", Drivetrain.getInstance().getLeftNeoVelocity());
-		SmartDashboard.putNumber("Right Velocity", Drivetrain.getInstance().getRightNeoVelocity());
 	}
 
 	@Override
