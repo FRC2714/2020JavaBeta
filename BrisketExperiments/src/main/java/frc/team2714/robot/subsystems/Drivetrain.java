@@ -8,10 +8,7 @@
 package frc.team2714.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
-import com.revrobotics.ControlType;
+import com.revrobotics.*;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
@@ -20,6 +17,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
@@ -88,6 +86,10 @@ public class Drivetrain extends SubsystemBase {
 	private CANPIDController lPidController;
 	private CANPIDController rPidController;
 
+	// Neo Encoders
+	private CANEncoder leftNeoEncoder;
+	private CANEncoder rightNeoEncoder;
+
 	//NavX
 	private AHRS navx;
 
@@ -147,11 +149,23 @@ public class Drivetrain extends SubsystemBase {
 		leftShaftEncoder.reset();
 		rightShaftEncoder.reset();
 
-		lMotor0.getEncoder().setPosition(0);
-		rMotor0.getEncoder().setPosition(0);
-
 		leftShaftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kShaftEncoderResolution);
 		rightShaftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kShaftEncoderResolution);
+
+		navx = new AHRS(SPI.Port.kMXP);
+		navx.reset();
+		navx.zeroYaw();
+		new Rotation2d();
+		m_odometer = new DifferentialDriveOdometry(Rotation2d.fromDegrees(-navx.getAngle()));
+		new Rotation2d();
+		m_odometer.resetPosition(new Pose2d(), Rotation2d.fromDegrees(-navx.getAngle()));
+
+		leftNeoEncoder = lMotor0.getEncoder();
+		rightNeoEncoder = rMotor0.getEncoder();
+
+
+		leftNeoEncoder.setPosition(0);
+		rightNeoEncoder.setPosition(0);
 
 		// Setup up PID coefficients
 		lPidController = lMotor0.getPIDController();
@@ -170,11 +184,6 @@ public class Drivetrain extends SubsystemBase {
 		rPidController.setFF(rKFF);
 		rPidController.setOutputRange(kMinOutput, kMaxOutput);
 
-		navx = new AHRS(SPI.Port.kMXP);
-		navx.reset();
-		navx.zeroYaw();
-		m_odometer = new DifferentialDriveOdometry(m_kinematics, new Rotation2d().fromDegrees(-navx.getAngle()));
-		m_odometer.resetPosition(new Pose2d(), new Rotation2d().fromDegrees(-navx.getAngle()));
 	}
 
 
@@ -209,23 +218,38 @@ public class Drivetrain extends SubsystemBase {
 	 * Updates the field-relative position.
 	 */
 	public Pose2d updateOdometry() {
-		return m_odometer.update(getAngle(), getCurrentSpeeds());
+		Translation2d translation2d = getCurrentPose().getTranslation();
+		return m_odometer.update(getAngle(), getLeftNeoDistance(), getRightNeoDistance());
 	}
 
 	/**
-	 *
 	 * @return Left velocity in ft/s approximately.
 	 */
 	public double getLeftNeoVelocity(){
-		return Units.feetToMeters(((lMotor0.getEncoder().getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation);
+		return Units.feetToMeters(((leftNeoEncoder.getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation);
+	}
+
+	/**
+	 * @return Right velocity in ft/s approximately.
+	 */
+	public double getRightNeoVelocity(){
+		return -Units.feetToMeters(((rightNeoEncoder.getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation);
 	}
 
 	/**
 	 *
-	 * @return Right velocity in ft/s approximately.
+	 * @return returns left neo distance in meters
 	 */
-	public double getRightNeoVelocity(){
-		return -Units.feetToMeters(((rMotor0.getEncoder().getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation);
+	public double getLeftNeoDistance(){
+		return Units.feetToMeters(leftNeoEncoder.getPosition() * (2 * Math.PI * kWheelRadius));
+	}
+
+	/**
+	 *
+	 * @return returns right neo distance in meters
+	 */
+	public double getRightNeoDistance(){
+		return Units.feetToMeters(leftNeoEncoder.getPosition() * (2 * Math.PI * kWheelRadius));
 	}
 
 	public Pose2d getCurrentPose(){
@@ -279,10 +303,14 @@ public class Drivetrain extends SubsystemBase {
 	public void resetAll() {
 		navx.reset();
 		m_odometer.resetPosition(new Pose2d(), new Rotation2d().fromDegrees(-navx.getAngle()));
+		lMotor0.getEncoder().setPosition(0);
+		rMotor0.getEncoder().setPosition(0);
 	}
 
 	public void resetCustomPosition(double x, double y) {
 		navx.reset();
 		m_odometer.resetPosition(new Pose2d(x,y,new Rotation2d()), new Rotation2d().fromDegrees(-navx.getAngle()));
+		lMotor0.getEncoder().setPosition(0);
+		rMotor0.getEncoder().setPosition(0);
 	}
 }
