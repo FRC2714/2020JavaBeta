@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
@@ -23,7 +24,6 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.team2714.robot.commands.DriverControl;
 import frc.team2714.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.team2714.robot.util.BBQRamseteCommand;
 
 import java.util.List;
 
@@ -74,8 +74,6 @@ public class RobotContainer {
 		TrajectoryConfig config =
 				new TrajectoryConfig(Units.feetToMeters(4), Units.feetToMeters(Drivetrain.kMaxAcceleration))
 						.setKinematics(drivetrain.getKinematics());
-
-
 
 		// An example trajectory to follow.  All units in meters.
 		Trajectory simpleSCurve = TrajectoryGenerator.generateTrajectory(

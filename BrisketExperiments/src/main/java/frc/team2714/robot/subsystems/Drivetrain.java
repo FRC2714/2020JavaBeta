@@ -202,8 +202,6 @@ public class Drivetrain extends SubsystemBase {
 	}
 
 	/**
-	 * Returns the current wheel speeds.
-	 *
 	 * @return The current wheel speeds.
 	 */
 	public DifferentialDriveWheelSpeeds getCurrentSpeeds() {
@@ -245,7 +243,6 @@ public class Drivetrain extends SubsystemBase {
 	}
 
 	/**
-	 *
 	 * @return returns right neo distance in meters
 	 */
 	public double getRightNeoDistance(){
@@ -276,9 +273,6 @@ public class Drivetrain extends SubsystemBase {
 		lMotor0.set(0);
 		rMotor0.set(0);
 	}
-
-
-
 
 	/**
 	 * Will be called periodically whenever the CommandScheduler runs.
