@@ -65,13 +65,14 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+		m_autonomousCommand = m_robotContainer.getCopiedAutonomousCommand();
 		m_autonomousCommand.initialize();
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.schedule();
 		}
+
 	}
 
 	/**
@@ -90,7 +91,6 @@ public class Robot extends TimedRobot {
 		Command driverControl = m_robotContainer.getDriverControl();
 		driverControl.initialize();
 		driverControl.schedule();
-
 	}
 
 	/**

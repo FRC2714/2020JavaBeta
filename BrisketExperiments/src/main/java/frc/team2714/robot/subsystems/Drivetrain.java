@@ -32,13 +32,13 @@ public class Drivetrain extends SubsystemBase {
 	private static double kTrackWidth = 3; // feet
 	private static double kWheelRadius = 3.0/12; // feet
 	private static int kShaftEncoderResolution = 8192; // counts per revolution bore encoder
-	private static double positionChangePerRotation = 8.6190767288208; // Motor rotation per shaft rotation
+	private static double positionChangePerRotation = 8.73; // Motor rotation per shaft rotation
 	public static double kMaxVelocity = 13; // feet per second
-	public static double kMaxAcceleration = 3; // Max Acceleration fet per second squared
+	public static double kMaxAcceleration = 3; // Max Accel fet per second squared
 
-	public static double ksVolts = 0.149; // Constant feedforward term for the robot drive.
-	public static double kvVoltSecondsPerFeet = 0.683; // Velocity-proportional feedforward term for the robot drive
-	public static double kaVoltSecondsSquaredPerFeet = 0.148; //Acceleration-proportional feedforward term for the robot
+	public static double ksVolts = 0.141; // Constant feedforward term for the robot drive.
+	public static double kvVoltSecondsPerMeter = 2.26; // Velocity-proportional feedforward term for the robot drive
+	public static double kaVoltSecondsSquaredPerMeter = 0.433; //Acceleration-proportional feedforward term for the robot
 
 	// Tuning parameter (b > 0) for which larger values make convergence more aggressive like a proportional term
 	public static double kRamseteB = 2;
@@ -46,8 +46,10 @@ public class Drivetrain extends SubsystemBase {
 	// Tuning parameter (0 &lt; zeta &lt; 1) for which larger values provide more damping in response
 	public static double kRamseteZeta = 0.7;
 
-	public static double kPDriveVel = 0;
+	public static double kPDrivePos = 34.5;
+	public static double kDDrivePos = 15.9;
 
+	public static double kPDriveVel = 4;
 
 	private double kMinOutput = -1;
 	private double kMaxOutput = 1;
@@ -186,7 +188,6 @@ public class Drivetrain extends SubsystemBase {
 
 	}
 
-
 	/**
 	 * Returns the angle of the robot as a Rotation2d.
 	 *
@@ -216,7 +217,6 @@ public class Drivetrain extends SubsystemBase {
 	 * Updates the field-relative position.
 	 */
 	public Pose2d updateOdometry() {
-		Translation2d translation2d = getCurrentPose().getTranslation();
 		return m_odometer.update(getAngle(), getLeftNeoDistance(), getRightNeoDistance());
 	}
 
@@ -224,14 +224,14 @@ public class Drivetrain extends SubsystemBase {
 	 * @return Left velocity in ft/s approximately.
 	 */
 	public double getLeftNeoVelocity(){
-		return Units.feetToMeters(((leftNeoEncoder.getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation);
+		return leftNeoEncoder.getPosition() / positionChangePerRotation * 2 * Math.PI * Units.feetToMeters(kWheelRadius) / 60;
 	}
 
 	/**
 	 * @return Right velocity in ft/s approximately.
 	 */
 	public double getRightNeoVelocity(){
-		return -Units.feetToMeters(((rightNeoEncoder.getVelocity() / 60.0) * (2 * Math.PI * kWheelRadius)) / positionChangePerRotation);
+		return rightNeoEncoder.getPosition() / positionChangePerRotation * 2 * Math.PI * Units.inchesToMeters(kWheelRadius) / 60;
 	}
 
 	/**
@@ -239,14 +239,14 @@ public class Drivetrain extends SubsystemBase {
 	 * @return returns left neo distance in meters
 	 */
 	public double getLeftNeoDistance(){
-		return Units.feetToMeters(leftNeoEncoder.getPosition() * (2 * Math.PI * kWheelRadius));
+		return Units.feetToMeters((leftNeoEncoder.getPosition() / positionChangePerRotation) * (2 * Math.PI * kWheelRadius));
 	}
 
 	/**
 	 * @return returns right neo distance in meters
 	 */
 	public double getRightNeoDistance(){
-		return Units.feetToMeters(leftNeoEncoder.getPosition() * (2 * Math.PI * kWheelRadius));
+		return Units.feetToMeters((leftNeoEncoder.getPosition() / positionChangePerRotation)* (2 * Math.PI * kWheelRadius));
 	}
 
 	public Pose2d getCurrentPose(){
@@ -306,5 +306,11 @@ public class Drivetrain extends SubsystemBase {
 		m_odometer.resetPosition(new Pose2d(x,y,new Rotation2d()), new Rotation2d().fromDegrees(-navx.getAngle()));
 		lMotor0.getEncoder().setPosition(0);
 		rMotor0.getEncoder().setPosition(0);
+	}
+
+	public void tankDriveVolts(double leftVolts, double rightVolts) {
+		SmartDashboard.putNumber("Ramsete Volts ", leftVolts);
+		lMotor0.set(leftVolts/12.0);
+		rMotor0.set(-rightVolts/12.0);
 	}
 }
