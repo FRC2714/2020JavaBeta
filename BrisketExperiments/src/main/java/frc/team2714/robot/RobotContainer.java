@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.team2714.robot.commands.DriverControl;
 import frc.team2714.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.team2714.robot.utils.Logger;
 
 import java.util.List;
 
@@ -53,6 +54,8 @@ public class RobotContainer {
 	public RobotContainer() {
 		// Configure the button bindings
 		configureButtonBindings();
+		Logger logger = Logger.getInstance();
+		logger.addSubsystem(drivetrain);
 	}
 
 	/**

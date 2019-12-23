@@ -25,6 +25,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2714.robot.Constants;
+import frc.team2714.robot.utils.CSVWriter;
+import frc.team2714.robot.utils.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -280,6 +285,15 @@ public class Drivetrain extends SubsystemBase {
 	@Override
 	public void periodic() {
 		currentPose = updateOdometry();
+
+		Map<String, Object> telemetry = new HashMap<>();
+
+		telemetry.put("Left NEO Encoder Speed Ft/s",Units.metersToFeet(getLeftNeoVelocity()));
+		telemetry.put("Right NEO Encoder Speed Ft/s", Units.metersToFeet(getLeftNeoVelocity()));
+
+		telemetry.put("X Pose", Units.metersToFeet(currentPose.getTranslation().getX()));
+		telemetry.put("Y Pose", Units.metersToFeet(currentPose.getTranslation().getY()));
+
 		SmartDashboard.putNumber("Left NEO Encoder Speed Ft/s", Units.metersToFeet(getLeftNeoVelocity()));
 		SmartDashboard.putNumber("Right NEO Encoder Speed Ft/s", Units.metersToFeet(getRightNeoVelocity()));
 
@@ -292,6 +306,9 @@ public class Drivetrain extends SubsystemBase {
 		SmartDashboard.putNumber("NavX Angle", m_odometer.getPoseMeters().getRotation().getDegrees());
 //		System.out.println("X Pose: " + currentPose.getTranslation().getX() + " | Y Pose: " + currentPose.getTranslation().getY() +
 //				"NavX Angle" + m_odometer.getPoseMeters().getRotation().getDegrees());
+
+		Logger.getInstance().putData(this, telemetry);
+
 	}
 
 	public void resetAll() {
