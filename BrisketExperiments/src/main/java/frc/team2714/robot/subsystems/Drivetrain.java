@@ -288,8 +288,8 @@ public class Drivetrain extends SubsystemBase {
 
 		Map<String, Object> telemetry = new HashMap<>();
 
-		telemetry.put("Left NEO Encoder Speed Ft/s",Units.metersToFeet(getLeftNeoVelocity()));
-		telemetry.put("Right NEO Encoder Speed Ft/s", Units.metersToFeet(getLeftNeoVelocity()));
+		telemetry.put("Left NEO Encoder Speed M/s",getLeftNeoVelocity());
+		telemetry.put("Right NEO Encoder Speed M/s", getRightNeoVelocity());
 
 		telemetry.put("X Pose", Units.metersToFeet(currentPose.getTranslation().getX()));
 		telemetry.put("Y Pose", Units.metersToFeet(currentPose.getTranslation().getY()));

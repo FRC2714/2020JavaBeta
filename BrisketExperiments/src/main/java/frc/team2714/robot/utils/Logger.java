@@ -22,7 +22,7 @@ public class Logger {
     }
 
     public void addSubsystem(Subsystem s) {
-        subsystemLogs.putIfAbsent(s, new CSVWriter(new File(s.getClass().getSimpleName())));
+        subsystemLogs.putIfAbsent(s, new CSVWriter(new File(s.getClass().getSimpleName() + ".csv")));
     }
 
     public void putData(Subsystem subsystem, Map<String, Object> data) {
@@ -30,6 +30,15 @@ public class Logger {
         log.putAll(data);
         log.write();
         // log.flush(); NOT NECESSARY
+    }
+
+    public void putData(String subsystemStr, Map<String, Object> data) {
+        for (Subsystem s : subsystemLogs.keySet()) {
+            if (s.getClass().getSimpleName().equals(subsystemStr)) {
+                putData(s, data);
+                return;
+            }
+        }
     }
 
 }
