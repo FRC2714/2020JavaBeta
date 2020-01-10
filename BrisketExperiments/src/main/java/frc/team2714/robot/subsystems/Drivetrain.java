@@ -25,6 +25,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team2714.robot.Constants;
+import frc.team2714.robot.util.DrivingController;
+import frc.team2714.robot.util.Odometer;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -39,6 +41,8 @@ public class Drivetrain extends SubsystemBase {
 	public static double ksVolts = 0.141; // Constant feedforward term for the robot drive.
 	public static double kvVoltSecondsPerMeter = 2.26; // Velocity-proportional feedforward term for the robot drive
 	public static double kaVoltSecondsSquaredPerMeter = 0.433; //Acceleration-proportional feedforward term for the robot
+
+	private final double rpmToFeet = 0.003135; // Convert RPM to ft/s
 
 	// Tuning parameter (b > 0) for which larger values make convergence more aggressive like a proportional term
 	public static double kRamseteB = 2;
@@ -108,6 +112,48 @@ public class Drivetrain extends SubsystemBase {
 			drivetrainInstance = new Drivetrain();
 		return drivetrainInstance;
 	}
+
+	public Odometer odometer = new Odometer(0,0,0) {
+
+		@Override
+		public void updateEncodersAndHeading() {
+			this.headingAngle = -navx.getYaw() + 90;
+			if(this.headingAngle < 0) {
+				this.headingAngle += 360;
+			}
+
+			this.leftPos = leftShaftEncoder.getDistance();
+			this.rightPos = rightShaftEncoder.getDistance();
+
+			double leftVelocity = leftShaftEncoder.getRate();
+			double rightVelocity = rightShaftEncoder.getRate();
+
+			this.currentAverageVelocity = (leftVelocity + rightVelocity) / 2;
+		}
+
+	};
+
+	public DrivingController drivingController = new DrivingController(0.01) {
+
+		/**
+		 * Use output from odometer and pass into autonomous driving controller
+		 */
+		@Override
+		public void updateVariables(){
+			this.currentX = odometer.getCurrentX();
+			this.currentY = odometer.getCurrentY();
+			this.currentAngle = odometer.getHeadingAngle();
+			this.currentAverageVelocity = odometer.getCurrentAverageVelocity();
+		}
+
+		/**
+		 * Link autonomous driving controller to the drive train motor control
+		 */
+		@Override
+		public void driveRobot(double power, double pivot) {
+			closedLoopArcade(power, pivot);
+		}
+	};
 
 
 	/**
@@ -185,7 +231,6 @@ public class Drivetrain extends SubsystemBase {
 		rPidController.setIZone(kIS);
 		rPidController.setFF(rKFF);
 		rPidController.setOutputRange(kMinOutput, kMaxOutput);
-
 	}
 
 	/**
@@ -279,6 +324,7 @@ public class Drivetrain extends SubsystemBase {
 	 */
 	@Override
 	public void periodic() {
+		odometer.integratePosition();
 		currentPose = updateOdometry();
 		SmartDashboard.putNumber("Left NEO Encoder Speed Ft/s", Units.metersToFeet(getLeftNeoVelocity()));
 		SmartDashboard.putNumber("Right NEO Encoder Speed Ft/s", Units.metersToFeet(getRightNeoVelocity()));
@@ -290,6 +336,13 @@ public class Drivetrain extends SubsystemBase {
 		SmartDashboard.putNumber("Y Pose Meters", (currentPose.getTranslation().getY()));
 
 		SmartDashboard.putNumber("NavX Angle", m_odometer.getPoseMeters().getRotation().getDegrees());
+
+		SmartDashboard.putNumber("Old NavX Angle", odometer.getHeadingAngle());
+		SmartDashboard.putNumber("Old X Pose Feet", Units.metersToFeet(odometer.getCurrentX()));
+		SmartDashboard.putNumber("Old Y Pose Feet", Units.metersToFeet(odometer.getCurrentY()));
+
+		SmartDashboard.putNumber("Left Encoder", leftShaftEncoder.getDistance());
+		SmartDashboard.putNumber("Right Encoder", rightShaftEncoder.getDistance());
 //		System.out.println("X Pose: " + currentPose.getTranslation().getX() + " | Y Pose: " + currentPose.getTranslation().getY() +
 //				"NavX Angle" + m_odometer.getPoseMeters().getRotation().getDegrees());
 	}
@@ -313,4 +366,17 @@ public class Drivetrain extends SubsystemBase {
 		lMotor0.set(leftVolts/12.0);
 		rMotor0.set(-rightVolts/12.0);
 	}
+
+	public void closedLoopArcade(double velocity, double pivot) {
+		pivot = pivot * 2.5;
+		closedLoopTank(velocity - pivot, velocity + pivot);
+		// System.out.println("pivot " + pivot);
+	}
+
+	public void closedLoopTank(double leftVelocity, double rightVelocity) {
+		lPidController.setReference(leftVelocity / rpmToFeet, ControlType.kVelocity);
+		rPidController.setReference(-rightVelocity / rpmToFeet, ControlType.kVelocity);
+		// System.out.println("ls: " + leftVelocity / rpmToFeet + " rs: " + -rightVelocity / rpmToFeet);
+	}
+
 }
