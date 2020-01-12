@@ -17,12 +17,14 @@ import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.spline.Spline;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import frc.team2714.robot.commands.auto.SplineTester;
 import frc.team2714.robot.commands.drivetrain.DriverControl;
 import frc.team2714.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -44,7 +46,8 @@ public class RobotContainer {
 	private Drivetrain drivetrain = new Drivetrain();
 
 	public static Joystick driverStick = new Joystick(0);
-	public DriverControl driverControl = new DriverControl(drivetrain);
+	private DriverControl driverControl = new DriverControl(drivetrain);
+
 
 
 	/**
@@ -193,9 +196,7 @@ public class RobotContainer {
 				drivetrain
 		);
 
-		// Run path following command, then stop at the end.
-//		return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
-		return new AddReversePath(drivetrain);
+		return new SplineTester(drivetrain);
 	}
 
 	public Command getDriverControl(){

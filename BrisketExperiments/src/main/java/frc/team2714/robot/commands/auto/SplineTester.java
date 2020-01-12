@@ -1,5 +1,6 @@
 package frc.team2714.robot.commands.auto;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.team2714.robot.commands.drivetrain.DriverControl;
 import frc.team2714.robot.commands.drivetrain.trajectory.AddForwardPath;
@@ -14,8 +15,19 @@ public class SplineTester extends SequentialCommandGroup {
                         new AddForwardPath(drivetrain,
                                 0,0,90,3,
                                 0,6.5,90,3,
+                                7,6,0,0),
+                        new AddReversePath(drivetrain,
+                                0,6.5,90,3,
+                                0,0,90,3,
                                 7,6,0,0)
+                ),
 
+                new SequentialCommandGroup(
+                        new InstantCommand(() -> drivetrain.odometer.setOffset(-180)),
+                        new AddReversePath(drivetrain,
+                                0,0,270,3,
+                                0,6.5,270,3,
+                                7,6,0,0)
                 )
         );
     }
