@@ -362,6 +362,8 @@ public class Drivetrain extends SubsystemBase {
 		m_odometer.resetPosition(new Pose2d(), new Rotation2d().fromDegrees(-navx.getAngle()));
 		lMotor0.getEncoder().setPosition(0);
 		rMotor0.getEncoder().setPosition(0);
+		leftShaftEncoder.reset();
+		rightShaftEncoder.reset();
 	}
 
 	public void resetCustomPosition(double x, double y) {

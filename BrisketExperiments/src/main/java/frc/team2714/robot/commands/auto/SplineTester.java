@@ -15,6 +15,7 @@ public class SplineTester extends SequentialCommandGroup {
                                 0,0,90,3,
                                 0,6.5,90,3,
                                 7,6,0,0)
+
                 )
         );
     }
