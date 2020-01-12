@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.team2714.robot.commands;
+package frc.team2714.robot.commands.drivetrain;
 
 import frc.team2714.robot.RobotContainer;
 import frc.team2714.robot.subsystems.Drivetrain;
@@ -16,10 +16,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class DriverControl extends CommandBase {
 
-	@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 	private final Drivetrain drivetrain;
-
-
 
 	/**
 	 * Creates a new DriverControl.

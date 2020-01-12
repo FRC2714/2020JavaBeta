@@ -85,8 +85,7 @@ public class Drivetrain extends SubsystemBase {
 
 	// Gearbox encoders
 	private Encoder leftShaftEncoder = new Encoder(Constants.p_leftEncoderA, Constants.p_leftEncoderB, true, CounterBase.EncodingType.k4X);
-	private Encoder rightShaftEncoder = new Encoder(Constants.p_rightEncoderA, Constants.p_rightEncoderB, true,
-			CounterBase.EncodingType.k4X);
+	private Encoder rightShaftEncoder = new Encoder(Constants.p_rightEncoderA, Constants.p_rightEncoderB, true, CounterBase.EncodingType.k4X);
 
 	//PID Controller
 	private CANPIDController lPidController;
@@ -101,17 +100,17 @@ public class Drivetrain extends SubsystemBase {
 
 	private DifferentialDrive differentialDrive;
 
-	private static Drivetrain drivetrainInstance = null;
-
-	/**
-	 * Return only once instance of a drivetrain.
-	 * @return an instance of the drivetrain.
-	 */
-	public static Drivetrain getInstance(){
-		if (drivetrainInstance == null)
-			drivetrainInstance = new Drivetrain();
-		return drivetrainInstance;
-	}
+//	private static Drivetrain drivetrainInstance = null;
+//
+//	/**
+//	 * Return only once instance of a drivetrain.
+//	 * @return an instance of the drivetrain.
+//	 */
+//	public static Drivetrain getInstance(){
+//		if (drivetrainInstance == null)
+//			drivetrainInstance = new Drivetrain();
+//		return drivetrainInstance;
+//	}
 
 	public Odometer odometer = new Odometer(0,0,0) {
 
