@@ -1,10 +1,14 @@
 package frc.team2714.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.team2714.robot.subsystems.Drivetrain;
+import frc.team2714.robot.util.MotionPose;
 
-public class AddBackwardsSpline extends InstantCommand {
+import java.util.ArrayList;
+
+public class AddBackwardsSpline extends CommandBase {
 
     private Drivetrain drivetrain;
     public AddBackwardsSpline(Drivetrain drivetrain){
@@ -30,9 +34,28 @@ public class AddBackwardsSpline extends InstantCommand {
     }
 
     @Override
+    public void initialize() {
+        addBackwardsSpline(0,0,270,2,0,4.5,270,2,2.5,3,0,0);
+        drivetrain.odometer.reset();
+        drivetrain.odometer.setOffset(-180);
+        drivetrain.navx.zeroYaw();
+        drivetrain.resetAll();
+        System.out.println("RAN ONCE");
+    }
+
+    @Override
     public void execute() {
-        addBackwardsSpline(0,0,270,2,4.5,0,270,2,3,4,0,0);
-        System.out.println("GENERATED SPLINE");
-        drivetrain.drivingController.getControlPath().stream().toString();
+        drivetrain.drivingController.run();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return drivetrain.drivingController.isFinished();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        System.out.println("ENDED");
+        drivetrain.closedLoopArcade(0,0);
     }
 }

@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import frc.team2714.robot.commands.AddBackwardsSpline;
 import frc.team2714.robot.commands.DriverControl;
 import frc.team2714.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -194,7 +195,8 @@ public class RobotContainer {
 		);
 
 		// Run path following command, then stop at the end.
-		return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
+//		return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
+		return new AddBackwardsSpline(drivetrain);
 	}
 
 	public Command getDriverControl(){

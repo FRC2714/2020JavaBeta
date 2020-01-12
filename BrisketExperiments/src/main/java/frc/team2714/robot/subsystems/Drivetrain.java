@@ -33,7 +33,7 @@ public class Drivetrain extends SubsystemBase {
 	private static double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
 	private static double kTrackWidth = 3; // feet
 	private static double kWheelRadius = 3.0/12; // feet
-	private static int kShaftEncoderResolution = 8192; // counts per revolution bore encoder
+	private static int kShaftEncoderResolution = 2048; // counts per revolution bore encoder
 	private static double positionChangePerRotation = 8.73; // Motor rotation per shaft rotation
 	public static double kMaxVelocity = 13; // feet per second
 	public static double kMaxAcceleration = 3; // Max Accel fet per second squared
@@ -97,7 +97,7 @@ public class Drivetrain extends SubsystemBase {
 	private CANEncoder rightNeoEncoder;
 
 	//NavX
-	private AHRS navx;
+	public AHRS navx;
 
 	private DifferentialDrive differentialDrive;
 
@@ -122,18 +122,25 @@ public class Drivetrain extends SubsystemBase {
 				this.headingAngle += 360;
 			}
 
-			this.leftPos = leftShaftEncoder.getDistance();
-			this.rightPos = rightShaftEncoder.getDistance();
+//			this.leftPos = leftShaftEncoder.getDistance();
+//			this.rightPos = rightShaftEncoder.getDistance();
+//
+//			double leftVelocity = leftShaftEncoder.getRate();
+//			double rightVelocity = rightShaftEncoder.getRate();
 
-			double leftVelocity = leftShaftEncoder.getRate();
-			double rightVelocity = rightShaftEncoder.getRate();
+			this.leftPos = getLeftNeoDistance();
+			this.rightPos = getRightNeoDistance();
+
+
+			double leftVelocity = getLeftNeoVelocity();
+			double rightVelocity = getRightNeoVelocity();
 
 			this.currentAverageVelocity = (leftVelocity + rightVelocity) / 2;
 		}
 
 	};
 
-	public DrivingController drivingController = new DrivingController(0.01) {
+	public DrivingController drivingController = new DrivingController(0.02) {
 
 		/**
 		 * Use output from odometer and pass into autonomous driving controller
@@ -151,7 +158,9 @@ public class Drivetrain extends SubsystemBase {
 		 */
 		@Override
 		public void driveRobot(double power, double pivot) {
-			closedLoopArcade(power, pivot);
+			closedLoopArcade(power, 0);
+//			System.out.println("Power = " + power + " || Pivot = " + pivot);
+//			SmartDashboard.putNumber("Drive Robot Power = ", power);
 		}
 	};
 
@@ -160,18 +169,17 @@ public class Drivetrain extends SubsystemBase {
 	 * Creates a new Drivetrain.
 	 */
 	public Drivetrain() {
-			lMotor0 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
-			lMotor1 = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
-			lMotor2 = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
-			rMotor0 = new CANSparkMax(4, CANSparkMaxLowLevel.MotorType.kBrushless);
-			rMotor1 = new CANSparkMax(5, CANSparkMaxLowLevel.MotorType.kBrushless);
-			rMotor2 = new CANSparkMax(6, CANSparkMaxLowLevel.MotorType.kBrushless);
+		lMotor0 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
+		lMotor1 = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
+		lMotor2 = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
+		rMotor0 = new CANSparkMax(4, CANSparkMaxLowLevel.MotorType.kBrushless);
+		rMotor1 = new CANSparkMax(5, CANSparkMaxLowLevel.MotorType.kBrushless);
+		rMotor2 = new CANSparkMax(6, CANSparkMaxLowLevel.MotorType.kBrushless);
 
 		lMotor1.follow(lMotor0);
 		rMotor1.follow(rMotor0);
 		lMotor2.follow(lMotor0);
 		rMotor2.follow(rMotor0);
-
 		lMotor0.setIdleMode(CANSparkMax.IdleMode.kBrake);
 		lMotor1.setIdleMode(CANSparkMax.IdleMode.kBrake);
 		lMotor2.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -197,8 +205,11 @@ public class Drivetrain extends SubsystemBase {
 		leftShaftEncoder.reset();
 		rightShaftEncoder.reset();
 
-		leftShaftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kShaftEncoderResolution);
-		rightShaftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kShaftEncoderResolution);
+//		leftShaftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kShaftEncoderResolution);
+//		rightShaftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kShaftEncoderResolution);
+
+		leftShaftEncoder.setDistancePerPulse(0.0007819);
+		rightShaftEncoder.setDistancePerPulse(0.0007819);
 
 		navx = new AHRS(SPI.Port.kMXP);
 		navx.reset();
@@ -377,6 +388,15 @@ public class Drivetrain extends SubsystemBase {
 		lPidController.setReference(leftVelocity / rpmToFeet, ControlType.kVelocity);
 		rPidController.setReference(-rightVelocity / rpmToFeet, ControlType.kVelocity);
 		// System.out.println("ls: " + leftVelocity / rpmToFeet + " rs: " + -rightVelocity / rpmToFeet);
+	}
+
+	public double calculateVisionDistanceFromTarget(){
+		double height2 = 0;
+		double height1 = 0;
+		double initialCameraAngle = 0;
+		double targetDeltaAngle = 0;
+
+		return (height2 - height1) / Math.tan(initialCameraAngle + targetDeltaAngle);
 	}
 
 }
