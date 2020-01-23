@@ -13,22 +13,22 @@ public class SplineTester extends SequentialCommandGroup {
         addCommands(
                 new SequentialCommandGroup(
                         new AddForwardPath(drivetrain,
-                                0,0,90,3,
-                                0,6.5,90,3,
-                                7,6,0,0),
-                        new AddReversePath(drivetrain,
-                                0,6.5,90,3,
-                                0,0,90,3,
-                                7,6,0,0)
-                ),
-
-                new SequentialCommandGroup(
-                        new InstantCommand(() -> drivetrain.odometer.setOffset(-180)),
-                        new AddReversePath(drivetrain,
-                                0,0,270,3,
-                                0,6.5,270,3,
-                                7,6,0,0)
+                                0,0,90,5,
+                                4.5,10,90,5,
+                                5,6,0,0)
+//                        new AddReversePath(drivetrain,
+//                                3.5,6.5,90,3,
+//                                0,0,90,3,
+//                                3,5,0,0)
                 )
+
+//                new SequentialCommandGroup(
+//                        new InstantCommand(() -> drivetrain.odometer.setOffset(-180)),
+//                        new AddReversePath(drivetrain,
+//                                0,0,270,3,
+//                                0,6.5,270,3,
+//                                7,6,0,0)
+//                )
         );
     }
 

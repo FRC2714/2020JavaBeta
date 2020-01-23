@@ -33,10 +33,11 @@ public class AddForwardPath extends CommandBase {
 
     @Override
     public void initialize() {
+        drivetrain.drivingController.setIsFinished(false);
         addForwardsSpline(xInitial, yInitial, thetaInitial, lInitial, xFinal, yFinal, thetaFinal, lFinal, maxAcceleration, maxVelocity, startVelocity, endVelocity);
-        drivetrain.odometer.reset();
-        drivetrain.navx.zeroYaw();
-        drivetrain.resetAll();
+//        drivetrain.odometer.reset();
+//        drivetrain.navx.zeroYaw();
+//        drivetrain.resetAll();
     }
 
     @Override

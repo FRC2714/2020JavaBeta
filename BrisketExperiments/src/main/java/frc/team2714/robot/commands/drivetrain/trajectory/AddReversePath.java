@@ -31,10 +31,11 @@ public class AddReversePath extends CommandBase {
 
     @Override
     public void initialize() {
+        drivetrain.drivingController.setIsFinished(false);
         addBackwardsSpline(xInitial, yInitial, thetaInitial, lInitial, xFinal, yFinal, thetaFinal, lFinal, maxAcceleration, maxVelocity, startVelocity, endVelocity);
-        drivetrain.odometer.reset();
-        drivetrain.navx.zeroYaw();
-        drivetrain.resetAll();
+//        drivetrain.odometer.reset();
+//        drivetrain.navx.zeroYaw();
+//        drivetrain.resetAll();
     }
 
     @Override

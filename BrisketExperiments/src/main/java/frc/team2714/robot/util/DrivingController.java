@@ -15,7 +15,7 @@ public abstract class DrivingController {
 	/**
 	 * Controls the magnitude of tangential correction
 	 */
-	private PID tangentialControl = new PID(0.4, 0.0, 0.0);
+	private PID tangentialControl = new PID(3.5, 0.0, 0.0);
 	private double tangentialOutput;
 
 	/**

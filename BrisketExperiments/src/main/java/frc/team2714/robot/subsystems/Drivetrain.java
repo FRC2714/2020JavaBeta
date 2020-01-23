@@ -121,18 +121,18 @@ public class Drivetrain extends SubsystemBase {
 				this.headingAngle += 360;
 			}
 
-//			this.leftPos = leftShaftEncoder.getDistance();
-//			this.rightPos = rightShaftEncoder.getDistance();
-//
-//			double leftVelocity = leftShaftEncoder.getRate();
-//			double rightVelocity = rightShaftEncoder.getRate();
+			this.leftPos = leftShaftEncoder.getDistance();
+			this.rightPos = rightShaftEncoder.getDistance();
 
-			this.leftPos = getLeftNeoDistance();
-			this.rightPos = getRightNeoDistance();
+			double leftVelocity = leftShaftEncoder.getRate();
+			double rightVelocity = rightShaftEncoder.getRate();
+
+//			this.leftPos = getLeftNeoDistance();
+//			this.rightPos = getRightNeoDistance();
 
 
-			double leftVelocity = getLeftNeoVelocity();
-			double rightVelocity = getRightNeoVelocity();
+//			double leftVelocity = getLeftNeoVelocity();
+//			double rightVelocity = getRightNeoVelocity();
 
 			this.currentAverageVelocity = (leftVelocity + rightVelocity) / 2;
 		}
@@ -157,7 +157,7 @@ public class Drivetrain extends SubsystemBase {
 		 */
 		@Override
 		public void driveRobot(double power, double pivot) {
-			closedLoopArcade(power, 0);
+			closedLoopArcade(power, pivot);
 //			System.out.println("Power = " + power + " || Pivot = " + pivot);
 //			SmartDashboard.putNumber("Drive Robot Power = ", power);
 		}
@@ -348,11 +348,11 @@ public class Drivetrain extends SubsystemBase {
 		SmartDashboard.putNumber("NavX Angle", m_odometer.getPoseMeters().getRotation().getDegrees());
 
 		SmartDashboard.putNumber("Old NavX Angle", odometer.getHeadingAngle());
-		SmartDashboard.putNumber("Old X Pose Feet", Units.metersToFeet(odometer.getCurrentX()));
-		SmartDashboard.putNumber("Old Y Pose Feet", Units.metersToFeet(odometer.getCurrentY()));
+		SmartDashboard.putNumber("Old X Pose Feet", odometer.getCurrentX());
+		SmartDashboard.putNumber("Old Y Pose Feet", odometer.getCurrentY());
 
-		SmartDashboard.putNumber("Left Encoder", leftShaftEncoder.getDistance());
-		SmartDashboard.putNumber("Right Encoder", rightShaftEncoder.getDistance());
+		SmartDashboard.putNumber("Neo Left Encoder", getLeftNeoDistance());
+		SmartDashboard.putNumber("Neo Right Encoder", getRightNeoDistance());
 //		System.out.println("X Pose: " + currentPose.getTranslation().getX() + " | Y Pose: " + currentPose.getTranslation().getY() +
 //				"NavX Angle" + m_odometer.getPoseMeters().getRotation().getDegrees());
 	}
